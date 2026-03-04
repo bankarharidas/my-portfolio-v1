@@ -28,7 +28,7 @@ export const personalInfo = {
   email: "bankarhari02@gmail.com",
   linkedin: "https://linkedin.com/in/bankarharidas",
   github: "https://github.com/bankarharidas",
-  resumeLink: "/Haridas_Bankar_Resume.pdf",
+  resumeLink: `${import.meta.env.BASE_URL}Haridas_Bankar_Resume.pdf`,
   bio: "Innovative Full Stack Developer passionate about creating seamless and impactful web solutions. With a strong foundation in Computer Science and hands-on experience in modern web technologies, I thrive in collaborative environments and love tackling new challenges.",
   shortBio: "I build things for the web.",
 };

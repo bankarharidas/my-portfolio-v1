@@ -1,6 +1,7 @@
-# 🌟 Aditi Arya  
+# 🌟 Aditi Arya
 
-### 👩‍💻 Welcome to my personal portfolio!  
-Explore my work and projects below 👇👇👇  
+### 👩‍💻 Welcome to my personal portfolio!
 
-🔗 [Check it out](https://aditiarya.netlify.app/)
+Explore my work and projects below 👇👇👇
+
+🔗 [Check it out](https://plugin-bankar.vercel.app/)
