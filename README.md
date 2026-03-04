@@ -1,4 +1,4 @@
-# 🌟 Aditi Arya
+# 🌟 Haridas Bankar
 
 ### 👩‍💻 Welcome to my personal portfolio!
 
