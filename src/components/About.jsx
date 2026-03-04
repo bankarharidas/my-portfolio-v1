@@ -15,14 +15,13 @@ const About = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
-        >
+          transition={{ duration: 0.6 }}>
           <p className="text-lg text-center md:text-xl text-text-secondary leading-relaxed font-light">
             <span className="text-accent-1 font-mono text-2xl mr-2">
               Hello!
             </span>
-            I'm Aditi, a driven Full Stack Developer with a strong foundation in
-            computer science and a knack for crafting efficient, user-centric
+            I'm Haridas, a driven Full Stack Developer with a strong foundation
+            in computer science and a knack for crafting efficient, user-centric
             applications. My journey into tech is fueled by a desire to learn,
             innovate, and contribute to projects that make a difference. I
             thrive in collaborative environments and am always excited to tackle
@@ -43,8 +42,7 @@ const About = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              viewport={{ once: true }}
-            >
+              viewport={{ once: true }}>
               <div className="flex flex-col md:flex-row justify-between md:items-center">
                 <div className="flex items-start">
                   <FaGraduationCap className="text-text-secondary/50 text-2xl mt-1 mr-4 group-hover:text-accent-1 transition-colors" />

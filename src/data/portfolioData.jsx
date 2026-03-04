@@ -23,34 +23,34 @@ import {
 } from "react-icons/si";
 
 export const personalInfo = {
-  name: "Aditi Arya",
+  name: "Haridas Bankar",
   title: "Full Stack Developer",
-  email: "aditiarya1511@gmail.com",
-  linkedin: "https://linkedin.com/in/aditiarya37",
-  github: "https://github.com/aditiarya37",
-  resumeLink: "/AditiAryaResume.pdf",
+  email: "bankarhari02@gmail.com",
+  linkedin: "https://linkedin.com/in/bankarharidas",
+  github: "https://github.com/bankarharidas",
+  resumeLink: "/Haridas_Bankar_Resume.pdf",
   bio: "Innovative Full Stack Developer passionate about creating seamless and impactful web solutions. With a strong foundation in Computer Science and hands-on experience in modern web technologies, I thrive in collaborative environments and love tackling new challenges.",
   shortBio: "I build things for the web.",
 };
 
 export const education = [
   {
-    institution: "Chandigarh University",
+    institution: "Savitribai Fule Pune University",
     degree: "Bachelor of Engineering in Computer Science",
-    duration: "Aug 2023 – Present",
-    score: "CGPA: 8.04/10",
+    duration: "Aug 2022 – Present",
+    score: "CGPA: 7.20/10",
   },
   {
-    institution: "Namdev Public School",
-    degree: "Class 12th CBSE",
-    duration: "April 2022 - May 2023",
-    score: "96.5%",
+    institution: "VidyaNiketan School, Pune",
+    degree: "Class 12th SSC",
+    duration: "April 2021 - May 2022",
+    score: "74.5%",
   },
   {
-    institution: "Namdev Public School",
+    institution: "VidyaNiketan School, Pune",
     degree: "Class 10th CBSE",
-    duration: "April 2020 - May 2021",
-    score: "95.17%",
+    duration: "April 2019 - May 2020",
+    score: "85.80%",
   },
 ];
 
@@ -85,8 +85,8 @@ export const projects = [
       </>,
     ],
     date: "Aug 2025 – Sep 2025",
-    githubLink: "https://github.com/aditiarya37",
-    liveLink: "https://ayurtrace-sepia.vercel.app", // Added Live Link
+    githubLink: "https://github.com/bankarharidas",
+    liveLink: "https://plugin-bankar.vercel.app/", // Added Live Link
     category: "Blockchain",
     icon: <FaDatabase size={24} className="text-accent-1" />,
     image: "/AyurTrace.png",
@@ -123,8 +123,8 @@ export const projects = [
       </>,
     ],
     date: "Nov 2025 – Dec 2025",
-    githubLink: "https://github.com/aditiarya37",
-    liveLink: "https://mavik-39.vercel.app", // Added Live Link
+    githubLink: "https://github.com/bankarharidas",
+    liveLink: "https://plugin-bankar.vercel.app/", // Added Live Link
     category: "IoT & AI",
     icon: <FaCode size={24} className="text-accent-1" />,
     image: "/MaViK-39.jpeg",
@@ -154,8 +154,8 @@ export const projects = [
       </>,
     ],
     date: "June 2025 – July 2025",
-    githubLink: "https://github.com/aditiarya37",
-    liveLink: "https://devlink-umber.vercel.app",
+    githubLink: "https://github.com/bankarharidas",
+    liveLink: "https://plugin-bankar.vercel.app/", // Added Live Link
     category: "Full Stack",
     icon: <FaReact size={24} className="text-accent-1" />,
     image: "/DevLink.png",
@@ -208,7 +208,7 @@ export const experience = [
   },
   {
     role: "Web Development Intern",
-    organization: "Makabo Labs (Remote)",
+    organization: "ProAzure Solution pvt.ltd (Remote)",
     duration: "June 2025 – July 2025",
     points: [
       "Developed key components for the Redknot platform, simplifying the global immigration process.",
@@ -234,15 +234,15 @@ export const experience = [
       "Coordinated with faculty and industry experts to bring technical opportunities to students.",
     ],
   },
-  {
-    role: "AMCAT 2nd Rank Holder",
-    organization: "Chandigarh University",
-    duration: "Sept 2024",
-    points: [
-      "Secured 2nd rank in AMCAT among 5500+ peers, showcasing strong analytical and problem-solving skills.",
-      "Demonstrated excellence in aptitude, coding, and domain-specific assessments, outperforming competition.",
-    ],
-  },
+  // {
+  //   role: "AMCAT 2nd Rank Holder",
+  //   organization: "Chandigarh University",
+  //   duration: "Sept 2024",
+  //   points: [
+  //     "Secured 2nd rank in AMCAT among 5500+ peers, showcasing strong analytical and problem-solving skills.",
+  //     "Demonstrated excellence in aptitude, coding, and domain-specific assessments, outperforming competition.",
+  //   ],
+  // },
 ];
 
 export const socialLinks = {
