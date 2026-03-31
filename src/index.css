@@ -1,0 +1,297 @@
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Variables for Theming ─── */
+:root {
+  --color-bg: #0d0d1a;
+  --color-bg-secondary: #111128;
+  --color-card: #161630;
+  --color-accent: #64ffda;
+  --color-accent-2: #e94560;
+  --color-text: #ccd6f6;
+  --color-text-muted: #8892b0;
+  --color-border: rgba(100, 255, 218, 0.12);
+  --gradient-1: linear-gradient(135deg, #64ffda 0%, #7c3aed 100%);
+  --gradient-2: linear-gradient(135deg, #e94560 0%, #7c3aed 100%);
+  --gradient-hero: linear-gradient(135deg, #0d0d1a 0%, #111128 50%, #0d0d1a 100%);
+  --shadow-glow: 0 0 40px rgba(100, 255, 218, 0.15);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.light {
+  --color-bg: #f0f4ff;
+  --color-bg-secondary: #e4eaff;
+  --color-card: #ffffff;
+  --color-accent: #0ea5e9;
+  --color-accent-2: #e94560;
+  --color-text: #1e2a4a;
+  --color-text-muted: #4a5568;
+  --color-border: rgba(14, 165, 233, 0.2);
+  --gradient-1: linear-gradient(135deg, #0ea5e9 0%, #7c3aed 100%);
+  --gradient-2: linear-gradient(135deg, #e94560 0%, #f59e0b 100%);
+  --gradient-hero: linear-gradient(135deg, #f0f4ff 0%, #e4eaff 50%, #f0f4ff 100%);
+  --shadow-glow: 0 0 40px rgba(14, 165, 233, 0.2);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+  }
+
+  body {
+    @apply antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', 'JetBrains Mono', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+  }
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 999px;
+  opacity: 0.6;
+}
+::-webkit-scrollbar-thumb:hover {
+  opacity: 1;
+}
+
+/* ─── Custom Utilities ─── */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--color-border);
+  }
+
+  .light .glass {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(14, 165, 233, 0.15);
+  }
+
+  .text-gradient {
+    background: var(--gradient-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-2 {
+    background: var(--gradient-2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
+  }
+
+  .btn-outline {
+    border: 1.5px solid var(--color-accent);
+    color: var(--color-accent);
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+  }
+
+  .card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 64px rgba(100, 255, 218, 0.12);
+    border-color: var(--color-accent);
+  }
+
+  .light .card:hover {
+    box-shadow: 0 24px 64px rgba(14, 165, 233, 0.12);
+  }
+
+  .section-bg {
+    background-color: var(--color-bg);
+    transition: background-color 0.4s ease;
+  }
+
+  .section-bg-alt {
+    background-color: var(--color-bg-secondary);
+    transition: background-color 0.4s ease;
+  }
+
+  .accent-color {
+    color: var(--color-accent);
+  }
+
+  .accent-bg {
+    background-color: var(--color-accent);
+  }
+
+  .muted-color {
+    color: var(--color-text-muted);
+  }
+
+  .border-accent {
+    border-color: var(--color-accent);
+  }
+}
+
+/* ─── Noise texture overlay ─── */
+.noise::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.3;
+}
+
+/* ─── Glow effects ─── */
+.glow-accent {
+  filter: drop-shadow(0 0 8px var(--color-accent));
+}
+
+/* ─── Shimmer loading effect ─── */
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-effect::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.1), transparent);
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  100% { left: 100%; }
+}
+
+/* ─── Number counter animation ─── */
+.stat-number {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Skill bar fill animation ─── */
+@keyframes fillBar {
+  from { width: 0%; }
+  to { width: var(--bar-width); }
+}
+
+.skill-bar-fill {
+  animation: fillBar 1.5s ease-out forwards;
+}
+
+/* ─── Cursor blink ─── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── 3D Card effect ─── */
+.perspective {
+  perspective: 1200px;
+}
+
+.experience-card-inner {
+  transform-style: preserve-3d;
+}
+
+.experience-card-front,
+.experience-card-back {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ─── Orbit animation ─── */
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+}
+
+/* ─── Background grid pattern ─── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(100, 255, 218, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 255, 218, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.light .bg-grid {
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+}
+
+/* ─── Section line decoration ─── */
+.section-line {
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-1);
+  border-radius: 2px;
+}
+
+/* ─── Theme transition ─── */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ─── Mobile menu ─── */
+.mobile-menu-item {
+  transition: all 0.2s ease;
+}

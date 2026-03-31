@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haridas Bankar | Full Stack Developer</title>
+    <meta name="description" content="Haridas Bankar - Innovative Full Stack Developer passionate about creating seamless and impactful web solutions. SIH 2025 Winner. Adobe Product Intern (Incoming 2026)." />
+    <meta name="keywords" content="Haridas Bankar, Full Stack Developer, React, Node.js, Portfolio, SIH, Adobe, Blockchain, IoT" />
+    <meta name="author" content="Haridas Bankar" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Haridas Bankar | Full Stack Developer" />
+    <meta property="og:description" content="Innovative Full Stack Developer. SIH 2025 Winner. Adobe Intern." />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme initialization (prevent flash) -->
+    <script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = stored ? stored === 'dark' : prefersDark;
+        if (!isDark) {
+          document.documentElement.classList.add('light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
