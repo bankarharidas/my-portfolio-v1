@@ -8,7 +8,6 @@ import {
   deleteDoc,
   query,
   where,
-  orderBy,
   Timestamp,
 } from 'firebase/firestore';
 import { db } from './firebase';
@@ -39,21 +38,21 @@ const fromFirestore = (id: string, data: any): BlogPost => ({
 });
 
 // Get all published blogs (public)
+// Fetch ALL and filter client-side — avoids Firestore composite index requirement
 export const getAllBlogs = async (): Promise<BlogPost[]> => {
-  const q = query(
-    collection(db, COLLECTION),
-    where('status', '==', 'published'),
-    orderBy('createdAt', 'desc')
-  );
-  const snap = await getDocs(q);
-  return snap.docs.map(d => fromFirestore(d.id, d.data()));
+  const snap = await getDocs(collection(db, COLLECTION));
+  return snap.docs
+    .map(d => fromFirestore(d.id, d.data()))
+    .filter(b => b.status === 'published')
+    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 };
 
-// Get all blogs (admin)
+// Get all blogs (admin) — all statuses, newest first
 export const getAllBlogsAdmin = async (): Promise<BlogPost[]> => {
-  const q = query(collection(db, COLLECTION), orderBy('createdAt', 'desc'));
-  const snap = await getDocs(q);
-  return snap.docs.map(d => fromFirestore(d.id, d.data()));
+  const snap = await getDocs(collection(db, COLLECTION));
+  return snap.docs
+    .map(d => fromFirestore(d.id, d.data()))
+    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 };
 
 // Get single blog by slug (public)

@@ -19,6 +19,7 @@ import ParticleBackground from "./components/ParticleBackground";
 // Blog pages
 import BlogList from "./pages/blog/BlogList";
 import BlogPost from "./pages/blog/BlogPost";
+import LatestBlogs from "./components/LatestBlogs";
 
 // Admin pages
 import AdminLogin from "./pages/admin/AdminLogin";
@@ -36,6 +37,7 @@ const Portfolio = () => (
       <Skills />
       <Projects />
       <Experience />
+      <LatestBlogs />
       <Contact />
     </main>
     <Footer />
