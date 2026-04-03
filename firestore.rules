@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /blogs/{blogId} {
+      // Anyone can read published blogs
+      allow read: if resource.data.status == 'published' || request.auth != null;
+      // Only authenticated users (admin) can write
+      allow create, update, delete: if request.auth != null;
+    }
+  }
+}

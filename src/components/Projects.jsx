@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaExternalLinkAlt,
-  FaGithub,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { projects } from "../data/portfolioData";
 import SectionTitle from "./SectionTitle";
 
@@ -16,7 +11,8 @@ const CategoryBadge = ({ category, color }) => (
       background: `${color}20`,
       color,
       border: `1px solid ${color}40`,
-    }}>
+    }}
+  >
     {category}
   </span>
 );
@@ -34,19 +30,20 @@ const ProjectCard = ({ project, index }) => {
       whileHover={{ y: -8 }}
       className="group relative rounded-2xl overflow-hidden flex flex-col h-full"
       style={{
-        background: "var(--color-card)",
-        border: "1px solid var(--color-border)",
-        boxShadow: "var(--shadow-card)",
-        transition: "all 0.3s ease",
+        background: 'var(--color-card)',
+        border: '1px solid var(--color-border)',
+        boxShadow: 'var(--shadow-card)',
+        transition: 'all 0.3s ease',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = color;
         e.currentTarget.style.boxShadow = `0 20px 60px ${color}15`;
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--color-border)";
-        e.currentTarget.style.boxShadow = "var(--shadow-card)";
-      }}>
+        e.currentTarget.style.borderColor = 'var(--color-border)';
+        e.currentTarget.style.boxShadow = 'var(--shadow-card)';
+      }}
+    >
       {/* Top color bar */}
       <div
         className="h-1 w-full"
@@ -61,19 +58,19 @@ const ProjectCard = ({ project, index }) => {
             <div className="flex items-center gap-3 mb-2">
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center text-lg"
-                style={{ background: `${color}15`, color }}>
+                style={{ background: `${color}15`, color }}
+              >
                 {project.icon}
               </div>
               <CategoryBadge category={project.category} color={color} />
             </div>
             <h3
               className="text-xl font-bold font-display"
-              style={{ color: "var(--color-text)" }}>
+              style={{ color: 'var(--color-text)' }}
+            >
               {project.title}
             </h3>
-            <p
-              className="text-xs font-mono mt-1"
-              style={{ color: "var(--color-text-muted)" }}>
+            <p className="text-xs font-mono mt-1" style={{ color: 'var(--color-text-muted)' }}>
               {project.date}
             </p>
           </div>
@@ -83,13 +80,10 @@ const ProjectCard = ({ project, index }) => {
               target="_blank"
               rel="noreferrer"
               className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
-              style={{ color: "var(--color-text-muted)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "var(--color-text-muted)";
-              }}>
+              style={{ color: 'var(--color-text-muted)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = color; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
+            >
               <FaGithub size={16} />
             </a>
             <a
@@ -97,13 +91,10 @@ const ProjectCard = ({ project, index }) => {
               target="_blank"
               rel="noreferrer"
               className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
-              style={{ color: "var(--color-text-muted)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = color;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "var(--color-text-muted)";
-              }}>
+              style={{ color: 'var(--color-text-muted)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = color; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
+            >
               <FaExternalLinkAlt size={13} />
             </a>
           </div>
@@ -112,11 +103,8 @@ const ProjectCard = ({ project, index }) => {
         {/* Description */}
         <ul className="space-y-2 mb-6 flex-grow">
           {project.description.map((point, i) => (
-            <li
-              key={i}
-              className="flex items-start gap-2 text-sm"
-              style={{ color: "var(--color-text-muted)" }}>
-              <span style={{ color, marginTop: "3px", flexShrink: 0 }}>▹</span>
+            <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
+              <span style={{ color, marginTop: '3px', flexShrink: 0 }}>▹</span>
               <span>{point}</span>
             </li>
           ))}
@@ -129,10 +117,11 @@ const ProjectCard = ({ project, index }) => {
               key={tech}
               className="text-xs font-mono px-2.5 py-1 rounded-md"
               style={{
-                background: "var(--color-bg)",
-                color: "var(--color-text-muted)",
-                border: "1px solid var(--color-border)",
-              }}>
+                background: 'var(--color-bg)',
+                color: 'var(--color-text-muted)',
+                border: '1px solid var(--color-border)',
+              }}
+            >
               {tech}
             </span>
           ))}
@@ -147,11 +136,9 @@ const Projects = () => {
     <section
       id="projects"
       className="py-32 relative overflow-hidden"
-      style={{ background: "var(--color-bg-secondary)" }}>
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "var(--color-border)" }}
-      />
+      style={{ background: 'var(--color-bg-secondary)' }}
+    >
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'var(--color-border)' }} />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         <SectionTitle
@@ -172,10 +159,9 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="text-center mt-16">
-          <p
-            className="text-sm mb-4"
-            style={{ color: "var(--color-text-muted)" }}>
+          className="text-center mt-16"
+        >
+          <p className="text-sm mb-4" style={{ color: 'var(--color-text-muted)' }}>
             Want to see more?
           </p>
           <motion.a
@@ -186,18 +172,13 @@ const Projects = () => {
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-2 px-8 py-3 rounded-lg text-sm font-bold font-mono"
             style={{
-              border: "1.5px solid var(--color-accent)",
-              color: "var(--color-accent)",
-              transition: "all 0.3s ease",
+              border: '1.5px solid var(--color-accent)',
+              color: 'var(--color-accent)',
+              transition: 'all 0.3s ease',
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "var(--color-accent)";
-              e.currentTarget.style.color = "var(--color-bg)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.color = "var(--color-accent)";
-            }}>
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-accent)'; e.currentTarget.style.color = 'var(--color-bg)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--color-accent)'; }}
+          >
             <FaGithub size={16} />
             View All on GitHub
           </motion.a>

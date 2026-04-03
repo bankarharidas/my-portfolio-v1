@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-scroll";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaBars, FaTimes, FaSun, FaMoon } from "react-icons/fa";
+import { FaBars, FaTimes, FaSun, FaMoon, FaPen } from "react-icons/fa";
 import { personalInfo } from "../data/portfolioData";
 import { useTheme } from "../context/ThemeContext";
 
@@ -18,6 +19,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const { isDark, toggleTheme } = useTheme();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,7 +79,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-1 h-full">
-          {navLinks.map((link, i) => (
+          {isHomePage && navLinks.map((link, i) => (
             <Link
               key={link.name}
               to={link.to}
@@ -115,6 +118,30 @@ const Navbar = () => {
               )}
             </Link>
           ))}
+
+          {/* Blog Link */}
+          <RouterLink
+            to="/blog"
+            className="relative cursor-pointer px-4 py-2 text-sm font-medium rounded-lg group flex items-center gap-1.5"
+            style={{
+              color: location.pathname.startsWith('/blog') ? 'var(--color-accent)' : 'var(--color-text-muted)',
+              transition: 'color 0.2s ease',
+            }}
+          >
+            <FaPen size={11} />
+            Blog
+            <span
+              className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full mx-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+              style={{ background: 'var(--color-accent)' }}
+            />
+            {location.pathname.startsWith('/blog') && (
+              <motion.span
+                layoutId="navIndicatorBlog"
+                className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full mx-4"
+                style={{ background: 'var(--color-accent)' }}
+              />
+            )}
+          </RouterLink>
 
           {/* Theme Toggle */}
           <motion.button
@@ -215,7 +242,7 @@ const Navbar = () => {
             }}
           >
             <div className="flex flex-col items-center py-8 space-y-4">
-              {navLinks.map((link, i) => (
+              {isHomePage && navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
                   initial={{ opacity: 0, x: -20 }}
@@ -236,6 +263,22 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
+              {/* Mobile Blog Link */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.07 }}
+              >
+                <RouterLink
+                  to="/blog"
+                  className="flex items-center gap-2 text-lg font-medium"
+                  style={{ color: location.pathname.startsWith('/blog') ? 'var(--color-accent)' : 'var(--color-text-muted)' }}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <FaPen size={13} style={{ color: 'var(--color-accent)' }} />
+                  Blog
+                </RouterLink>
+              </motion.div>
               <motion.a
                 href={personalInfo.resumeLink}
                 target="_blank"
