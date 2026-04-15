@@ -1,151 +1,247 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaEnvelope, FaLinkedin, FaGithub, FaPaperPlane } from "react-icons/fa";
+import { FaEnvelope, FaLinkedin, FaGithub } from "react-icons/fa";
 import { personalInfo } from "../data/portfolioData";
-import SectionTitle from "./SectionTitle";
+
+const contactMethods = [
+  {
+    label: "Email",
+    value: "bankarhari02@gmail.com",
+    href: `mailto:bankarhari02@gmail.com`,
+    icon: <FaEnvelope size={16} />,
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/bankarharidas",
+    href: "https://linkedin.com/in/bankarharidas",
+    icon: <FaLinkedin size={16} />,
+  },
+  {
+    label: "GitHub",
+    value: "github.com/bankarharidas",
+    href: "https://github.com/bankarharidas",
+    icon: <FaGithub size={16} />,
+  },
+];
+
+const UnderlineField = ({ label, name, type = "text", value, onChange, isTextarea }) => {
+  const [focused, setFocused] = useState(false);
+  const baseStyle = {
+    width: "100%",
+    background: "transparent",
+    border: "none",
+    borderBottom: `1px solid ${focused ? "var(--color-accent)" : "var(--color-border)"}`,
+    outline: "none",
+    color: "var(--color-text)",
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontSize: "0.92rem",
+    padding: "0.6rem 0",
+    transition: "border-color 0.2s",
+    borderRadius: 0,
+    resize: isTextarea ? "vertical" : undefined,
+    minHeight: isTextarea ? "100px" : undefined,
+  };
+
+  return (
+    <div style={{ marginBottom: "1.5rem" }}>
+      <label
+        style={{
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: "0.6rem",
+          fontWeight: 700,
+          letterSpacing: "0.18em",
+          textTransform: "uppercase",
+          color: focused ? "var(--color-accent)" : "var(--color-text-muted)",
+          display: "block",
+          marginBottom: "0.4rem",
+          transition: "color 0.2s",
+        }}
+      >
+        {label}
+      </label>
+      {isTextarea ? (
+        <textarea
+          name={name}
+          value={value}
+          onChange={onChange}
+          required
+          rows={4}
+          style={baseStyle}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        />
+      ) : (
+        <input
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          required
+          style={baseStyle}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+        />
+      )}
+    </div>
+  );
+};
 
 const Contact = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [focused, setFocused] = useState(null);
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-  const handleChange = (e) => setFormState(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const inputStyle = (field) => ({
-    width: '100%',
-    padding: '0.875rem 1.125rem',
-    borderRadius: '0.75rem',
-    border: `1.5px solid ${focused === field ? 'var(--color-accent)' : 'var(--color-border)'}`,
-    background: 'var(--color-bg)',
-    color: 'var(--color-text)',
-    fontSize: '0.9rem',
-    fontFamily: 'inherit',
-    outline: 'none',
-    transition: 'all 0.2s ease',
-    boxShadow: focused === field ? '0 0 0 3px rgba(100,255,218,0.1)' : 'none',
-  });
-
-  const contactLinks = [
-    {
-      icon: <FaEnvelope size={20} />,
-      label: "Email",
-      value: personalInfo.email,
-      href: `mailto:${personalInfo.email}`,
-      color: "#64ffda",
-    },
-    {
-      icon: <FaLinkedin size={20} />,
-      label: "LinkedIn",
-      value: "bankarharidas",
-      href: personalInfo.linkedin,
-      color: "#0ea5e9",
-    },
-    {
-      icon: <FaGithub size={20} />,
-      label: "GitHub",
-      value: "bankarharidas",
-      href: personalInfo.github,
-      color: "#e94560",
-    },
-  ];
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(form.subject || "Portfolio Contact from " + form.name)}&body=${encodeURIComponent(form.message)}`;
+  };
 
   return (
     <section
       id="contact"
-      className="py-32 relative overflow-hidden"
-      style={{ background: 'var(--color-bg-secondary)' }}
+      style={{ background: "var(--color-bg-secondary)", padding: "6rem 0" }}
     >
-      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'var(--color-border)' }} />
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
 
-      {/* Background glow */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[120px] pointer-events-none"
-        style={{ background: 'rgba(100, 255, 218, 0.04)' }}
-      />
+        {/* ── Header ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ marginBottom: "3.5rem" }}
+        >
+          <span
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              letterSpacing: "0.2em",
+              color: "var(--color-text-muted)",
+              textTransform: "uppercase",
+              display: "block",
+              marginBottom: "0.5rem",
+            }}
+          >
+            007
+          </span>
+          <h2
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "clamp(3rem, 8vw, 6rem)",
+              fontWeight: 400,
+              lineHeight: 0.9,
+              color: "var(--color-text)",
+              margin: "0 0 1rem",
+              letterSpacing: "0.02em",
+            }}
+          >
+            Let's Talk
+          </h2>
+          <div style={{ width: "120px", height: "4px", background: "var(--color-accent)" }} />
+        </motion.div>
 
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <SectionTitle
-          number="05"
-          title="Get In Touch"
-          subtitle="What's next? Let's connect!"
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Left: Copy */}
+        {/* ── Two column layout ── */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "5rem",
+            alignItems: "start",
+          }}
+          className="contact-grid-responsive"
+        >
+          {/* LEFT: editorial copy + contact rows */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
+            initial={{ opacity: 0, x: -24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.6 }}
           >
-            <h3
-              className="text-2xl font-black font-display mb-4"
-              style={{ color: 'var(--color-text)' }}
-            >
-              Let's work together
-            </h3>
             <p
-              className="text-base leading-relaxed mb-8"
-              style={{ color: 'var(--color-text-muted)' }}
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: "1.35rem",
+                fontWeight: 500,
+                color: "var(--color-text)",
+                lineHeight: 1.5,
+                marginBottom: "3rem",
+              }}
             >
-              I'm currently looking for new opportunities and my inbox is always open.
-              Whether you have a question, a project idea, or just want to say hi —
-              I'll try my best to get back to you!
-            </p>
-            <p
-              className="text-base leading-relaxed mb-10"
-              style={{ color: 'var(--color-text-muted)' }}
-            >
-              I'm especially interested in{" "}
-              <span style={{ color: 'var(--color-accent)', fontWeight: 600 }}>full-stack roles</span>
-              ,{" "}
-              <span style={{ color: 'var(--color-accent)', fontWeight: 600 }}>product internships</span>
-              , and exciting{" "}
-              <span style={{ color: 'var(--color-accent)', fontWeight: 600 }}>open source collaborations</span>.
+              Got a project? A collaboration? Or just want to say hi?{" "}
+              <span style={{ color: "var(--color-accent)" }}>Let's make something great.</span>
             </p>
 
-            {/* Contact Links */}
-            <div className="space-y-4">
-              {contactLinks.map((link, i) => (
+            {/* Contact method rows */}
+            <div style={{ borderTop: "1px solid var(--color-border)" }}>
+              {contactMethods.map((method, i) => (
                 <motion.a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith('mailto') ? '_self' : '_blank'}
+                  key={method.label}
+                  href={method.href}
+                  target={method.href.startsWith("mailto") ? "_self" : "_blank"}
                   rel="noreferrer"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -12 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  whileHover={{ x: 8 }}
-                  className="flex items-center gap-4 p-4 rounded-xl group"
                   style={{
-                    background: 'var(--color-card)',
-                    border: '1px solid var(--color-border)',
-                    transition: 'all 0.3s ease',
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "1.25rem 0",
+                    borderBottom: "1px solid var(--color-border)",
+                    textDecoration: "none",
+                    transition: "background 0.15s",
+                    gap: "1rem",
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = link.color;
-                    e.currentTarget.style.boxShadow = `0 4px 20px ${link.color}15`;
+                    e.currentTarget.style.background = "var(--color-card)";
+                    e.currentTarget.querySelector(".arrow-icon").style.color = "var(--color-accent)";
+                    e.currentTarget.querySelector(".arrow-icon").style.transform = "translateX(4px)";
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--color-border)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.querySelector(".arrow-icon").style.color = "var(--color-text-muted)";
+                    e.currentTarget.querySelector(".arrow-icon").style.transform = "translateX(0)";
                   }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                    style={{ background: `${link.color}15`, color: link.color }}
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <span
+                      style={{
+                        fontFamily: "'JetBrains Mono', monospace",
+                        fontSize: "0.6rem",
+                        fontWeight: 700,
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "var(--color-text-muted)",
+                        minWidth: "70px",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.4rem",
+                      }}
+                    >
+                      {method.icon} {method.label}
+                    </span>
+                    <span
+                      style={{
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: "0.9rem",
+                        fontWeight: 500,
+                        color: "var(--color-text)",
+                      }}
+                    >
+                      {method.value}
+                    </span>
+                  </div>
+                  <span
+                    className="arrow-icon"
+                    style={{
+                      color: "var(--color-text-muted)",
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: "1rem",
+                      transition: "color 0.15s, transform 0.15s",
+                    }}
                   >
-                    {link.icon}
-                  </div>
-                  <div>
-                    <p className="text-xs font-mono mb-0.5" style={{ color: 'var(--color-text-muted)' }}>
-                      {link.label}
-                    </p>
-                    <p className="text-sm font-semibold" style={{ color: 'var(--color-text)' }}>
-                      {link.value}
-                    </p>
-                  </div>
-                  <span className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: link.color }}>
                     →
                   </span>
                 </motion.a>
@@ -153,97 +249,88 @@ const Contact = () => {
             </div>
           </motion.div>
 
-          {/* Right: Form */}
+          {/* RIGHT: form */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
+            initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
           >
             <form
-              className="rounded-2xl p-8"
+              onSubmit={handleSubmit}
               style={{
-                background: 'var(--color-card)',
-                border: '1px solid var(--color-border)',
-              }}
-              onSubmit={(e) => {
-                e.preventDefault();
-                window.location.href = `mailto:${personalInfo.email}?subject=Portfolio Contact from ${formState.name}&body=${formState.message}`;
+                background: "var(--color-card)",
+                border: "1px solid var(--color-border)",
+                padding: "2.5rem",
+                borderRadius: 0,
               }}
             >
               <h4
-                className="text-lg font-bold mb-6 flex items-center gap-2"
-                style={{ color: 'var(--color-text)' }}
+                style={{
+                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontSize: "1.8rem",
+                  fontWeight: 400,
+                  color: "var(--color-text)",
+                  letterSpacing: "0.05em",
+                  margin: "0 0 1.75rem",
+                }}
               >
-                <span style={{ color: 'var(--color-accent)' }}>📬</span>
                 Send a Message
               </h4>
 
-              <div className="space-y-5">
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-text-muted)' }}>
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formState.name}
-                    onChange={handleChange}
-                    placeholder="John Doe"
-                    required
-                    style={inputStyle('name')}
-                    onFocus={() => setFocused('name')}
-                    onBlur={() => setFocused(null)}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-text-muted)' }}>
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formState.email}
-                    onChange={handleChange}
-                    placeholder="john@example.com"
-                    required
-                    style={inputStyle('email')}
-                    onFocus={() => setFocused('email')}
-                    onBlur={() => setFocused(null)}
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2" style={{ color: 'var(--color-text-muted)' }}>
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formState.message}
-                    onChange={handleChange}
-                    placeholder="Your message here..."
-                    required
-                    rows={5}
-                    style={{ ...inputStyle('message'), resize: 'vertical', minHeight: '120px' }}
-                    onFocus={() => setFocused('message')}
-                    onBlur={() => setFocused(null)}
-                  />
-                </div>
+              <UnderlineField
+                label="Your Name"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+              />
+              <UnderlineField
+                label="Email Address"
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+              />
+              <UnderlineField
+                label="Subject"
+                name="subject"
+                value={form.subject}
+                onChange={handleChange}
+              />
+              <UnderlineField
+                label="Message"
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                isTextarea
+              />
 
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-bold font-mono"
-                  style={{
-                    background: 'var(--color-accent)',
-                    color: 'var(--color-bg)',
-                    boxShadow: '0 8px 24px rgba(100, 255, 218, 0.25)',
-                  }}
-                >
-                  <FaPaperPlane size={14} />
-                  Send Message
-                </motion.button>
-              </div>
+              <button
+                type="submit"
+                style={{
+                  width: "100%",
+                  padding: "1rem",
+                  background: "var(--color-accent)",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 0,
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  cursor: "pointer",
+                  transition: "opacity 0.15s",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.88")}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+              >
+                Send Message →
+              </button>
             </form>
           </motion.div>
         </div>

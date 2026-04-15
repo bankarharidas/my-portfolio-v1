@@ -14,6 +14,77 @@ const navLinks = [
   { name: "Contact", to: "contact" },
 ];
 
+/* ─── Logo Mark ─── */
+const LogoMark = () => (
+  <motion.div
+    whileHover={{ scale: 1.07 }}
+    whileTap={{ scale: 0.96 }}
+    transition={{ type: "spring", stiffness: 420, damping: 22 }}
+    style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "1px",
+      lineHeight: 1,
+      userSelect: "none",
+    }}
+  >
+    {/* SVG gradient definition — injected inline so it works in any context */}
+    <svg width="0" height="0" style={{ position: "absolute" }}>
+      <defs>
+        <linearGradient id="hb-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%"   stopColor="#FF3B00" />
+          <stop offset="55%"  stopColor="#FF7A2F" />
+          <stop offset="100%" stopColor="#FFB347" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    {/* < bracket */}
+    <span
+      style={{
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: "1.1rem",
+        fontWeight: 700,
+        color: "rgba(255,91,0,0.45)",
+        letterSpacing: "-0.04em",
+      }}
+    >
+      {"<"}
+    </span>
+
+    {/* HB wordmark */}
+    <span
+      style={{
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: "1.65rem",
+        fontWeight: 400,
+        letterSpacing: "0.06em",
+        background: "linear-gradient(135deg, #FF3B00 0%, #FF7A2F 55%, #FFB347 100%)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+        /* Ensures gradient renders on Safari + Chrome */
+        display: "inline-block",
+      }}
+    >
+      HB
+    </span>
+
+    {/* /> bracket */}
+    <span
+      style={{
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: "1.1rem",
+        fontWeight: 700,
+        color: "rgba(255,91,0,0.45)",
+        letterSpacing: "-0.04em",
+      }}
+    >
+      {"/>"}
+    </span>
+  </motion.div>
+);
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -47,35 +118,25 @@ const Navbar = () => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 w-full"
       style={{
-        background: scrolled
-          ? isDark
-            ? 'rgba(13, 13, 26, 0.85)'
-            : 'rgba(240, 244, 255, 0.85)'
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+        background: 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
         borderBottom: scrolled ? `1px solid var(--color-border)` : 'none',
-        boxShadow: scrolled ? 'var(--shadow-card)' : 'none',
+        boxShadow: 'none',
         transition: 'all 0.4s ease',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-        {/* Logo */}
-        <Link
-          to="hero"
-          smooth={true}
-          duration={500}
-          offset={-100}
-          className="cursor-pointer group flex items-center gap-2"
-        >
-          <motion.span
-            className="text-2xl font-bold font-mono tracking-tighter text-gradient"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          >
-            &lt;HB /&gt;
-          </motion.span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-6 h-14 flex justify-between items-center">
+        {/* Logo — scrolls to #hero on home, navigates to / elsewhere */}
+        {isHomePage ? (
+          <Link to="hero" smooth duration={500} offset={-100} className="cursor-pointer">
+            <LogoMark />
+          </Link>
+        ) : (
+          <RouterLink to="/" className="cursor-pointer">
+            <LogoMark />
+          </RouterLink>
+        )}
 
         {/* Desktop Links */}
         <div className="hidden md:flex items-center space-x-1 h-full">
@@ -236,8 +297,9 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden overflow-hidden"
             style={{
-              background: isDark ? 'rgba(13, 13, 26, 0.97)' : 'rgba(240, 244, 255, 0.97)',
+              background: isDark ? 'rgba(19,19,19,0.97)' : 'rgba(245,240,232,0.97)',
               backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
               borderBottom: `1px solid var(--color-border)`,
             }}
           >

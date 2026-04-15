@@ -28,9 +28,9 @@ export default {
         'light-text-secondary': '#4a5568',
       },
       fontFamily: {
-        sans: ['"Inter"', '"JetBrains Mono"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        sans: ['"Space Grotesk"', '"JetBrains Mono"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace'],
-        display: ['"Outfit"', '"Inter"', 'sans-serif'],
+        display: ['"Bebas Neue"', 'sans-serif'],
       },
       animation: {
         'text-focus-in': 'text-focus-in 1s cubic-bezier(0.550, 0.085, 0.680, 0.530) both',

@@ -37,14 +37,19 @@ const fromFirestore = (id: string, data: any): BlogPost => ({
   readTime: data.readTime || 1,
 });
 
-// Get all published blogs (public)
+// Get all published blogs (public) — safe for unauthenticated visitors
 // Fetch ALL and filter client-side — avoids Firestore composite index requirement
 export const getAllBlogs = async (): Promise<BlogPost[]> => {
-  const snap = await getDocs(collection(db, COLLECTION));
-  return snap.docs
-    .map(d => fromFirestore(d.id, d.data()))
-    .filter(b => b.status === 'published')
-    .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  try {
+    const snap = await getDocs(collection(db, COLLECTION));
+    return snap.docs
+      .map(d => fromFirestore(d.id, d.data()))
+      .filter(b => b.status === 'published')
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  } catch (err) {
+    console.warn('[blogService] getAllBlogs failed — check Firestore rules:', err);
+    return [];
+  }
 };
 
 // Get all blogs (admin) — all statuses, newest first
@@ -55,13 +60,18 @@ export const getAllBlogsAdmin = async (): Promise<BlogPost[]> => {
     .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 };
 
-// Get single blog by slug (public)
+// Get single blog by slug (public) — safe for unauthenticated visitors
 export const getBlogBySlug = async (slug: string): Promise<BlogPost | null> => {
-  const q = query(collection(db, COLLECTION), where('slug', '==', slug));
-  const snap = await getDocs(q);
-  if (snap.empty) return null;
-  const d = snap.docs[0];
-  return fromFirestore(d.id, d.data());
+  try {
+    const q = query(collection(db, COLLECTION), where('slug', '==', slug));
+    const snap = await getDocs(q);
+    if (snap.empty) return null;
+    const d = snap.docs[0];
+    return fromFirestore(d.id, d.data());
+  } catch (err) {
+    console.warn('[blogService] getBlogBySlug failed — check Firestore rules:', err);
+    return null;
+  }
 };
 
 // Get single blog by ID (admin)

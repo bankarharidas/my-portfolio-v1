@@ -1,269 +1,246 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { skills } from "../data/portfolioData";
-import SectionTitle from "./SectionTitle";
 
-const skillCategoryConfig = {
-  languages: {
-    title: "Languages",
-    emoji: "🧑‍💻",
-    color: "#64ffda",
-  },
-  frameworksAndLibraries: {
-    title: "Frameworks & Libraries",
-    emoji: "⚡",
-    color: "#e94560",
-  },
-  toolsAndPlatforms: {
-    title: "Tools & Platforms",
-    emoji: "🛠️",
-    color: "#7c3aed",
-  },
-  coreCompetencies: {
-    title: "Core Competencies",
-    emoji: "🎯",
-    color: "#f59e0b",
-  },
-};
-
-const SkillIcon = ({ skill, index, color }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.5 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true }}
-    transition={{
-      delay: index * 0.06,
-      type: "spring",
-      stiffness: 200,
-      damping: 15,
-    }}
-    whileHover={{ scale: 1.12, y: -6 }}
-    className="flex flex-col items-center gap-3 p-4 rounded-xl cursor-default group"
-    style={{
-      background: 'var(--color-card)',
-      border: `1px solid var(--color-border)`,
-      transition: 'all 0.3s ease',
-    }}
-    onMouseEnter={(e) => {
-      e.currentTarget.style.borderColor = color;
-      e.currentTarget.style.boxShadow = `0 8px 30px ${color}20`;
-    }}
-    onMouseLeave={(e) => {
-      e.currentTarget.style.borderColor = 'var(--color-border)';
-      e.currentTarget.style.boxShadow = 'none';
-    }}
-  >
+const ChipGroup = ({ label, items }) => (
+  <div style={{ marginBottom: "2rem" }}>
     <span
-      className="text-3xl sm:text-4xl"
-      style={{ color }}
+      style={{
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: "0.65rem",
+        fontWeight: 700,
+        letterSpacing: "0.2em",
+        textTransform: "uppercase",
+        color: "var(--color-text-muted)",
+        display: "block",
+        marginBottom: "0.75rem",
+      }}
     >
-      {skill.icon}
+      {label}
     </span>
-    <span
-      className="text-xs font-semibold text-center leading-tight font-mono"
-      style={{ color: 'var(--color-text-muted)' }}
-    >
-      {skill.name}
-    </span>
-  </motion.div>
-);
-
-const CompetencyBadge = ({ name, index, color }) => (
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: index * 0.08 }}
-    whileHover={{ scale: 1.05, x: 6 }}
-    className="flex items-center gap-3 px-5 py-3 rounded-xl"
-    style={{
-      background: 'var(--color-card)',
-      border: '1px solid var(--color-border)',
-    }}
-  >
-    <motion.span
-      animate={{ scale: [1, 1.2, 1] }}
-      transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
-      className="text-base"
-      style={{ color }}
-    >
-      ▹
-    </motion.span>
-    <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>
-      {name}
-    </span>
-  </motion.div>
-);
-
-const Skills = () => {
-  const [activeTab, setActiveTab] = useState("languages");
-
-  const tabs = Object.keys(skillCategoryConfig).filter(k => k !== 'coreCompetencies');
-
-  return (
-    <section
-      id="skills"
-      className="py-32 relative overflow-hidden"
-      style={{ background: 'var(--color-bg)' }}
-    >
-      <div className="container mx-auto px-6 max-w-7xl relative z-10">
-        <SectionTitle number="02" title="Skills & Tools" subtitle="Technologies I work with every day" />
-
-        {/* Tab Buttons */}
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+      {items.map((skill, i) => (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          key={skill.name}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap gap-3 mb-10"
+          transition={{ delay: i * 0.04, duration: 0.3 }}
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: "0.68rem",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            padding: "0.45rem 0.9rem",
+            border: "1px solid var(--color-border)",
+            color: "var(--color-text-muted)",
+            borderRadius: 0,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.4rem",
+            cursor: "default",
+            transition: "all 0.15s",
+            background: "transparent",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = "var(--color-accent)";
+            e.currentTarget.style.color = "var(--color-accent)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = "var(--color-border)";
+            e.currentTarget.style.color = "var(--color-text-muted)";
+          }}
         >
-          {tabs.map((tab) => {
-            const cfg = skillCategoryConfig[tab];
-            const isActive = activeTab === tab;
-            return (
-              <motion.button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold font-mono transition-all duration-200"
-                style={{
-                  background: isActive ? cfg.color : 'transparent',
-                  color: isActive ? 'var(--color-bg)' : 'var(--color-text-muted)',
-                  border: `1.5px solid ${isActive ? cfg.color : 'var(--color-border)'}`,
-                }}
-              >
-                <span>{cfg.emoji}</span>
-                {cfg.title}
-              </motion.button>
-            );
-          })}
+          <span style={{ fontSize: "0.95rem", lineHeight: 1 }}>{skill.icon}</span>
+          {skill.name}
         </motion.div>
+      ))}
+    </div>
+  </div>
+);
 
-        {/* Skills Grid */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 mb-16"
+const Skills = () => (
+  <section
+    id="skills"
+    style={{ background: "var(--color-bg)", padding: "6rem 0" }}
+  >
+    <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+
+      {/* ── Section Header ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        style={{ marginBottom: "3.5rem" }}
+      >
+        <span
+          style={{
+            fontFamily: "'JetBrains Mono', monospace",
+            fontSize: "0.7rem",
+            fontWeight: 700,
+            letterSpacing: "0.2em",
+            color: "var(--color-text-muted)",
+            textTransform: "uppercase",
+            display: "block",
+            marginBottom: "0.5rem",
+          }}
         >
-          {skills[activeTab].map((skill, i) => (
-            <SkillIcon
-              key={skill.name}
-              skill={skill}
-              index={i}
-              color={skillCategoryConfig[activeTab].color}
-            />
-          ))}
-        </motion.div>
+          004
+        </span>
+        <h2
+          style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: "clamp(3rem, 8vw, 6rem)",
+            fontWeight: 400,
+            lineHeight: 0.9,
+            color: "var(--color-text)",
+            margin: "0 0 1rem",
+            letterSpacing: "0.02em",
+          }}
+        >
+          Skills
+        </h2>
+        <div style={{ width: "120px", height: "4px", background: "var(--color-accent)" }} />
+      </motion.div>
 
-        {/* Core Competencies */}
+      {/* ── Two-column layout ── */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 380px",
+          gap: "4rem",
+          alignItems: "start",
+        }}
+        className="skills-grid-responsive"
+      >
+        {/* LEFT: tech chips */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3
-            className="text-xl font-bold font-mono mb-6 flex items-center gap-2"
-            style={{ color: 'var(--color-text)' }}
-          >
-            <span>🎯</span> Core Competencies
-          </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {skills.coreCompetencies.map((name, i) => (
-              <CompetencyBadge
-                key={name}
-                name={name}
-                index={i}
-                color={skillCategoryConfig.coreCompetencies.color}
-              />
-            ))}
-          </div>
+          <ChipGroup label="Languages" items={skills.languages} />
+          <ChipGroup label="Frameworks & Libraries" items={skills.frameworksAndLibraries} />
+          <ChipGroup label="Tools & Platforms" items={skills.toolsAndPlatforms} />
         </motion.div>
 
-        {/* Tech orbit visualization */}
+        {/* RIGHT: competencies + quote */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="flex justify-center mt-16"
+          transition={{ duration: 0.6, delay: 0.1 }}
         >
-          <div className="relative w-64 h-64">
-            {/* Center */}
-            <div
-              className="absolute inset-0 m-auto w-16 h-16 rounded-full flex items-center justify-center"
+          {/* Core Competencies */}
+          <div
+            style={{
+              background: "var(--color-card)",
+              border: "1px solid var(--color-border)",
+              padding: "1.75rem",
+              borderRadius: 0,
+              marginBottom: "1.5rem",
+            }}
+          >
+            <span
               style={{
-                background: 'var(--color-card)',
-                border: '2px solid var(--color-accent)',
-                boxShadow: '0 0 30px rgba(100,255,218,0.15)',
-                width: '64px', height: '64px',
-                top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "0.65rem",
+                fontWeight: 700,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--color-text-muted)",
+                display: "block",
+                marginBottom: "1.25rem",
               }}
             >
-              <span className="text-xs font-bold font-mono" style={{ color: 'var(--color-accent)' }}>
-                HB
-              </span>
-            </div>
-
-            {/* Orbiting skills */}
-            {['React', 'Node', 'MongoDB', 'Java', 'Git', 'Cloud'].map((label, i) => {
-              const angle = (i / 6) * Math.PI * 2;
-              const radius = 100;
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
-              return (
+              Core Competencies
+            </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+              {skills.coreCompetencies.map((name, i) => (
                 <motion.div
-                  key={label}
-                  animate={{
-                    x: [
-                      Math.cos(angle) * radius,
-                      Math.cos(angle + 0.3) * radius,
-                      Math.cos(angle) * radius,
-                    ],
-                    y: [
-                      Math.sin(angle) * radius,
-                      Math.sin(angle + 0.3) * radius,
-                      Math.sin(angle) * radius,
-                    ],
-                  }}
-                  transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute rounded-full flex items-center justify-center"
+                  key={name}
+                  initial={{ opacity: 0, x: -12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
                   style={{
-                    width: '44px', height: '44px',
-                    top: `calc(50% + ${y}px - 22px)`,
-                    left: `calc(50% + ${x}px - 22px)`,
-                    background: 'var(--color-card)',
-                    border: '1px solid var(--color-border)',
-                    fontSize: '0.55rem',
-                    fontWeight: 700,
-                    color: 'var(--color-accent)',
-                    fontFamily: 'monospace',
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "1rem",
+                    padding: "0.5rem 0",
                   }}
                 >
-                  {label}
+                  {/* Left accent bar */}
+                  <div
+                    style={{
+                      width: "3px",
+                      height: "1rem",
+                      background: "var(--color-accent)",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: "0.88rem",
+                      fontWeight: 500,
+                      color: "var(--color-text)",
+                    }}
+                  >
+                    {name}
+                  </span>
                 </motion.div>
-              );
-            })}
-
-            {/* Orbit ring */}
-            <div
-              className="absolute"
-              style={{
-                top: '50%', left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '220px', height: '220px',
-                borderRadius: '50%',
-                border: '1px dashed rgba(100,255,218,0.1)',
-              }}
-            />
+              ))}
+            </div>
           </div>
+
+          {/* Editorial quote block */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            style={{
+              border: "1px solid var(--color-border)",
+              borderLeft: "4px solid var(--color-accent)",
+              padding: "1.5rem",
+              background: "var(--color-card)",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'Bebas Neue', sans-serif",
+                fontSize: "1.6rem",
+                fontWeight: 400,
+                color: "var(--color-text)",
+                letterSpacing: "0.05em",
+                lineHeight: 1.2,
+                margin: "0 0 0.5rem",
+              }}
+            >
+              Full Stack
+              <span style={{ color: "var(--color-accent)" }}> ·</span> Blockchain
+              <span style={{ color: "var(--color-accent)" }}> ·</span> AI/ML
+            </p>
+            <span
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "0.6rem",
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+                color: "var(--color-text-muted)",
+              }}
+            >
+              Primary Domains
+            </span>
+          </motion.div>
         </motion.div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Skills;

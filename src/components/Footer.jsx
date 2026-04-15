@@ -1,70 +1,137 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaEnvelope, FaHeart } from "react-icons/fa";
+import { Link } from "react-scroll";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { personalInfo } from "../data/portfolioData";
+
+const NAV = ["About", "Skills", "Projects", "Experience", "Contact"];
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
     <footer
-      className="py-12 relative"
       style={{
-        background: 'var(--color-bg)',
-        borderTop: '1px solid var(--color-border)',
+        background: "var(--color-bg)",
+        borderTop: "1px solid var(--color-border)",
+        padding: "2rem 0",
       }}
     >
-      <div className="container mx-auto px-6 max-w-7xl">
-        <div className="flex flex-col items-center gap-8">
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "0 2rem",
+        }}
+      >
+        {/* Row 1 */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "1rem",
+            marginBottom: "1rem",
+          }}
+        >
           {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-3xl font-black font-mono text-gradient"
+          <span
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              fontSize: "1.8rem",
+              fontWeight: 400,
+              color: "var(--color-text)",
+              letterSpacing: "0.05em",
+            }}
           >
-            &lt;HB /&gt;
-          </motion.div>
+            HB
+            <span style={{ color: "var(--color-accent)" }}>.</span>
+          </span>
 
-          {/* Links */}
-          <div className="flex items-center gap-6">
-            {[
-              { icon: <FaGithub size={20} />, href: personalInfo.github, color: '#e2e8f0' },
-              { icon: <FaLinkedin size={20} />, href: personalInfo.linkedin, color: '#0ea5e9' },
-              { icon: <FaEnvelope size={20} />, href: `mailto:${personalInfo.email}`, color: '#64ffda' },
-            ].map(({ icon, href, color }, i) => (
-              <motion.a
-                key={i}
-                href={href}
-                target={href.startsWith('mailto') ? '_self' : '_blank'}
-                rel="noreferrer"
-                whileHover={{ scale: 1.2, y: -4 }}
-                whileTap={{ scale: 0.95 }}
-                style={{ color: 'var(--color-text-muted)', transition: 'color 0.2s ease' }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = color; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--color-text-muted)'; }}
+          {/* Nav links */}
+          <nav style={{ display: "flex", gap: "1.75rem", flexWrap: "wrap" }}>
+            {NAV.map((item) => (
+              <Link
+                key={item}
+                to={item.toLowerCase()}
+                smooth
+                duration={600}
+                offset={-80}
+                style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: "0.62rem",
+                  fontWeight: 600,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: "var(--color-text-muted)",
+                  cursor: "pointer",
+                  transition: "color 0.15s",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
               >
-                {icon}
-              </motion.a>
+                {item}
+              </Link>
             ))}
-          </div>
+          </nav>
 
-          {/* Copyright */}
-          <p
-            className="text-sm font-mono text-center flex items-center gap-2"
-            style={{ color: 'var(--color-text-muted)', opacity: 0.6 }}
-          >
-            Built with{" "}
-            <motion.span
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{ color: '#e94560', display: 'inline-flex' }}
+          {/* Social icons */}
+          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              style={{ color: "var(--color-text-muted)", transition: "color 0.15s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
             >
-              <FaHeart size={12} />
-            </motion.span>
-            {" "}by Haridas Bankar © {year}
-          </p>
+              <FaGithub size={16} />
+            </a>
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              style={{ color: "var(--color-text-muted)", transition: "color 0.15s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+            >
+              <FaLinkedin size={16} />
+            </a>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              aria-label="Email"
+              style={{ color: "var(--color-text-muted)", transition: "color 0.15s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+            >
+              <FaEnvelope size={15} />
+            </a>
+          </div>
+        </div>
 
-          <p className="text-xs font-mono" style={{ color: 'var(--color-text-muted)', opacity: 0.4 }}>
-            React · Vite · TailwindCSS · Framer Motion
+        {/* Row 2: copyright */}
+        <div
+          style={{
+            borderTop: "1px solid var(--color-border)",
+            paddingTop: "1rem",
+            textAlign: "center",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "0.6rem",
+              fontWeight: 500,
+              letterSpacing: "0.1em",
+              color: "var(--color-text-muted)",
+              opacity: 0.6,
+              margin: 0,
+            }}
+          >
+            Designed &amp; Built by Haridas Bankar — React · Vite · Framer Motion · © {year}
           </p>
         </div>
       </div>

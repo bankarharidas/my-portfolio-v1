@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft, FaClock, FaTag, FaCalendar } from 'react-icons/fa';
 import { getBlogBySlug } from '../../lib/blogService';
 import type { BlogPost } from '../../types/blog';
+import Navbar from '../../components/Navbar';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -48,6 +49,8 @@ const BlogPost = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
+      {/* Shared Navbar */}
+      <Navbar />
       {/* Cover Image */}
       {blog.coverImage && (
         <div className="blog-post-cover">

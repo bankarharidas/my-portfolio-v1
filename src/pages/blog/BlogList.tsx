@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaSearch, FaClock, FaTag, FaArrowRight } from 'react-icons/fa';
+import { FaSearch, FaClock, FaTag, FaArrowRight, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import { getAllBlogs } from '../../lib/blogService';
 import type { BlogPost } from '../../types/blog';
+import Navbar from '../../components/Navbar';
+import { useAuth } from '../../context/AuthContext';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedTag, setSelectedTag] = useState('');
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllBlogs()
@@ -30,6 +34,9 @@ const BlogList = () => {
 
   return (
     <div className="blog-page">
+      {/* Shared Navbar */}
+      <Navbar />
+
       {/* Hero */}
       <section className="blog-hero">
         <motion.div
@@ -38,11 +45,38 @@ const BlogList = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
+          {/* Back to Home button */}
+          <motion.button
+            className="blog-back-home"
+            onClick={() => navigate('/')}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            whileHover={{ x: -4 }}
+          >
+            <FaArrowLeft size={12} /> Back to Home
+          </motion.button>
+
           <span className="blog-hero-label">MY BLOG</span>
           <h1 className="blog-hero-title">Thoughts & Articles</h1>
           <p className="blog-hero-subtitle">
             Insights on web development, tech & everything in between.
           </p>
+
+          {/* Admin-only: New Post button */}
+          {user && (
+            <motion.button
+              className="blog-new-post-btn"
+              onClick={() => navigate('/admin/new')}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+            >
+              <FaPlus size={12} /> New Post
+            </motion.button>
+          )}
         </motion.div>
       </section>
 
