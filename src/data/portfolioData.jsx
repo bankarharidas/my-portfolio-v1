@@ -20,11 +20,12 @@ import {
   SiSpringboot,
   SiPostman,
   SiGooglecloud,
+  SiPython,
 } from "react-icons/si";
 
 export const personalInfo = {
   name: "Haridas Bankar",
-  title: "Full Stack Developer",
+  title: "Full Stack Developer, AI Developer",
   email: "bankarhari02@gmail.com",
   linkedin: "https://linkedin.com/in/bankarharidas",
   github: "https://github.com/bankarharidas",
@@ -38,17 +39,17 @@ export const education = [
     institution: "Savitribai Fule Pune University",
     degree: "Bachelor of Engineering in Computer Science",
     duration: "Aug 2022 – Present",
-    score: "CGPA: 7.20/10",
+    score: "CGPA: 7.41/10",
   },
   {
     institution: "VidyaNiketan School, Pune",
-    degree: "Class 12th SSC",
+    degree: "Class 12th HSC",
     duration: "April 2021 - May 2022",
     score: "74.5%",
   },
   {
     institution: "VidyaNiketan School, Pune",
-    degree: "Class 10th CBSE",
+    degree: "Class 10th SSC",
     duration: "April 2019 - May 2020",
     score: "85.80%",
   },
@@ -56,109 +57,37 @@ export const education = [
 
 export const projects = [
   {
-    title: "AyurTrace",
-    tech: ["Hyperledger Fabric", "IoT", "React.js", "Smart Contracts"],
+    title: "HAR.ai - Human Activity Recognition",
+    tech: [
+      "Python",
+      "Flask",
+      "MediaPipe",
+      "TensorFlow",
+      "LSTM",
+      "OpenCV",
+    ],
     description: [
       <>
-        <span className="text-accent-1 font-semibold">
-          1st Place Winner SIH 2025 Round 1
-        </span>
-        .
+        Developed <span className="text-text-primary font-medium">HAR.ai</span>,
+        a real-time Human Activity Recognition platform using MediaPipe Pose and
+        a custom-trained LSTM model to classify human physical actions with high
+        confidence.
       </>,
       <>
-        Directed a{" "}
+        Built a{" "}
         <span className="text-text-primary font-medium">
-          blockchain-based supply chain
+          Flask web dashboard
         </span>{" "}
-        web application for Ayurvedic herb traceability.
-      </>,
-      <>
-        Implemented{" "}
-        <span className="text-text-primary font-medium">
-          immutable on-chain tracking
-        </span>{" "}
-        with QR verification, ensuring{" "}
-        <span className="text-accent-1 font-semibold">
-          100% supply chain transparency
-        </span>
-        .
+        supporting live webcam detection, video file uploads (MP4/AVI/MOV), and
+        real-time action probability distribution metrics.
       </>,
     ],
-    date: "Aug 2025 – Sep 2025",
+    date: "July 2025 – May 2026",
     githubLink: "https://github.com/bankarharidas",
-    liveLink: "https://plugin-bankar.vercel.app/", // Added Live Link
-    category: "Blockchain",
-    icon: <FaDatabase size={24} className="text-accent-1" />,
-    image: "/AyurTrace.png",
-  },
-  {
-    title: "MaViK-39",
-    tech: ["RAG", "IoT", "React.js", "TensorFlow", "Cloud"],
-    description: [
-      <>
-        <span className="text-accent-1 font-semibold">
-          National Finalist SIH 2025
-        </span>
-        .
-      </>,
-      <>
-        Delivered an{" "}
-        <span className="text-text-primary font-medium">
-          IoT-enabled lab management
-        </span>{" "}
-        web application, decreasing equipment downtime by{" "}
-        <span className="text-accent-1 font-semibold">25%</span>.
-      </>,
-      <>
-        Integrated{" "}
-        <span className="text-text-primary font-medium">
-          biometric authentication
-        </span>
-        , voice interface, and{" "}
-        <span className="text-text-primary font-medium">
-          RAG-powered AI chatbot
-        </span>
-        , improving operational efficiency by{" "}
-        <span className="text-accent-1 font-semibold">40%</span>.
-      </>,
-    ],
-    date: "Nov 2025 – Dec 2025",
-    githubLink: "https://github.com/bankarharidas",
-    liveLink: "https://plugin-bankar.vercel.app/", // Added Live Link
-    category: "IoT & AI",
-    icon: <FaCode size={24} className="text-accent-1" />,
-    image: "/MaViK-39.jpeg",
-  },
-  {
-    title: "DevLink",
-    tech: ["React JS", "Node.js", "Express.js", "MongoDB"],
-    description: [
-      <>
-        Designed and developed a{" "}
-        <span className="text-text-primary font-medium">
-          full-stack developer community platform
-        </span>{" "}
-        enabling users to create profiles, share projects, and collaborate.
-      </>,
-      <>
-        Owned the system end-to-end by implementing{" "}
-        <span className="text-text-primary font-medium">
-          frontend architecture
-        </span>
-        , <span className="text-text-primary font-medium">backend APIs</span>,
-        and{" "}
-        <span className="text-text-primary font-medium">
-          secure authentication
-        </span>
-        .
-      </>,
-    ],
-    date: "June 2025 – July 2025",
-    githubLink: "https://github.com/bankarharidas",
-    liveLink: "https://plugin-bankar.vercel.app/", // Added Live Link
-    category: "Full Stack",
-    icon: <FaReact size={24} className="text-accent-1" />,
-    image: "/DevLink.png",
+    liveLink: "https://github.com/bankarharidas",
+    category: "AI / ML",
+    icon: <SiPython size={24} className="text-accent-1" />,
+    image: "/har-ai.png",
   },
   {
     title: "Apna College Web Dev",
@@ -176,7 +105,8 @@ export const projects = [
         <span className="text-text-primary font-medium">
           multiple hands-on projects
         </span>{" "}
-        spanning HTML, CSS, JavaScript, and React to solidify core frontend fundamentals.
+        spanning HTML, CSS, JavaScript, and React to solidify core frontend
+        fundamentals.
       </>,
       <>
         Demonstrates{" "}
@@ -202,12 +132,14 @@ export const projects = [
         <span className="text-text-primary font-medium">
           full-stack AI web application
         </span>{" "}
-        that recognises handwritten digits (0–9) drawn on an HTML5 canvas in real time.
+        that recognises handwritten digits (0–9) drawn on an HTML5 canvas in
+        real time.
       </>,
       <>
         Trained an{" "}
-        <span className="text-accent-1 font-semibold">MLP Classifier</span>{" "}
-        on the MNIST dataset with custom image pre-processing (cropping, centering, blurring) to boost accuracy.
+        <span className="text-accent-1 font-semibold">MLP Classifier</span> on
+        the MNIST dataset with custom image pre-processing (cropping, centering,
+        blurring) to boost accuracy.
       </>,
       <>
         Served predictions via a{" "}
@@ -216,8 +148,10 @@ export const projects = [
       </>,
     ],
     date: "Feb 2026",
-    githubLink: "https://github.com/bankarharidas/Handwritten-Digit-Recognition-AI",
-    liveLink: "https://github.com/bankarharidas/Handwritten-Digit-Recognition-AI",
+    githubLink:
+      "https://github.com/bankarharidas/Handwritten-Digit-Recognition-AI",
+    liveLink:
+      "https://github.com/bankarharidas/Handwritten-Digit-Recognition-AI",
     category: "AI / ML",
     icon: <FaCode size={24} className="text-accent-1" />,
     image: null,
@@ -231,11 +165,12 @@ export const projects = [
         <span className="text-text-primary font-medium">
           YouTube video downloader web app
         </span>{" "}
-        that lets users paste a URL and download videos in their preferred quality.
+        that lets users paste a URL and download videos in their preferred
+        quality.
       </>,
       <>
-        Powered by{" "}
-        <span className="text-accent-1 font-semibold">yt-dlp</span> under the hood with a clean{" "}
+        Powered by <span className="text-accent-1 font-semibold">yt-dlp</span>{" "}
+        under the hood with a clean{" "}
         <span className="text-text-primary font-medium">Flask backend</span>{" "}
         handling download requests and file streaming.
       </>,
@@ -291,15 +226,6 @@ export const skills = {
 };
 
 export const experience = [
-  {
-    role: "Product Intern",
-    organization: "Adobe",
-    duration: "Incoming 2026",
-    points: [
-      "Selected as a Product Intern at Adobe.",
-      "Excited to contribute to world-class digital experiences and product innovation.",
-    ],
-  },
   {
     role: "Web Development Intern",
     organization: "ProAzure Solution pvt.ltd (Remote)",
