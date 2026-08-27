@@ -28,7 +28,7 @@ const ScrollToTop = () => {
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           id="scroll-to-top"
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full flex items-center justify-center"
+          className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-50 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center touch-target"
           style={{
             background: 'var(--color-card)',
             border: '2px solid var(--color-accent)',

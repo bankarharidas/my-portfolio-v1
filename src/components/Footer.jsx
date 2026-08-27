@@ -16,24 +16,9 @@ const Footer = () => {
         padding: "2rem 0",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1280px",
-          margin: "0 auto",
-          padding: "0 2rem",
-        }}
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Row 1 */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: "1rem",
-            marginBottom: "1rem",
-          }}
-        >
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 text-center sm:text-left">
           {/* Logo */}
           <span
             style={{
@@ -49,7 +34,7 @@ const Footer = () => {
           </span>
 
           {/* Nav links */}
-          <nav style={{ display: "flex", gap: "1.75rem", flexWrap: "wrap" }}>
+          <nav className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {NAV.map((item) => (
               <Link
                 key={item}
@@ -57,9 +42,10 @@ const Footer = () => {
                 smooth
                 duration={600}
                 offset={-80}
+                className="py-1"
                 style={{
                   fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "0.62rem",
+                  fontSize: "0.65rem",
                   fontWeight: 600,
                   letterSpacing: "0.15em",
                   textTransform: "uppercase",
@@ -77,13 +63,13 @@ const Footer = () => {
           </nav>
 
           {/* Social icons */}
-          <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <div className="flex gap-4 items-center justify-center">
             <a
               href={personalInfo.github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              style={{ color: "var(--color-text-muted)", transition: "color 0.15s" }}
+              style={{ color: "var(--color-text-muted)", transition: "color 0.15s", padding: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
             >
@@ -94,7 +80,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              style={{ color: "var(--color-text-muted)", transition: "color 0.15s" }}
+              style={{ color: "var(--color-text-muted)", transition: "color 0.15s", padding: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
             >
@@ -103,7 +89,7 @@ const Footer = () => {
             <a
               href={`mailto:${personalInfo.email}`}
               aria-label="Email"
-              style={{ color: "var(--color-text-muted)", transition: "color 0.15s" }}
+              style={{ color: "var(--color-text-muted)", transition: "color 0.15s", padding: "4px" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
             >

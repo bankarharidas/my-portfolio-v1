@@ -100,16 +100,17 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      style={{ background: "var(--color-bg-secondary)", padding: "6rem 0" }}
+      className="py-16 sm:py-24 md:py-32"
+      style={{ background: "var(--color-bg-secondary)" }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ marginBottom: "3.5rem" }}
+          style={{ marginBottom: "3rem" }}
         >
           <span
             style={{
@@ -128,7 +129,7 @@ const Contact = () => {
           <h2
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(3rem, 8vw, 6rem)",
+              fontSize: "clamp(2.8rem, 8vw, 6rem)",
               fontWeight: 400,
               lineHeight: 0.9,
               color: "var(--color-text)",
@@ -141,16 +142,8 @@ const Contact = () => {
           <div style={{ width: "120px", height: "4px", background: "var(--color-accent)" }} />
         </motion.div>
 
-        {/* ── Two column layout ── */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "5rem",
-            alignItems: "start",
-          }}
-          className="contact-grid-responsive"
-        >
+        {/* ── Responsive layout ── */}
+        <div className="contact-grid-responsive">
           {/* LEFT: editorial copy + contact rows */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
@@ -161,11 +154,11 @@ const Contact = () => {
             <p
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: "1.35rem",
+                fontSize: "clamp(1.1rem, 2.5vw, 1.35rem)",
                 fontWeight: 500,
                 color: "var(--color-text)",
                 lineHeight: 1.5,
-                marginBottom: "3rem",
+                marginBottom: "2rem",
               }}
             >
               Got a project? A collaboration? Or just want to say hi?{" "}
@@ -188,11 +181,11 @@ const Contact = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    padding: "1.25rem 0",
+                    padding: "1.1rem 0",
                     borderBottom: "1px solid var(--color-border)",
                     textDecoration: "none",
                     transition: "background 0.15s",
-                    gap: "1rem",
+                    gap: "0.75rem",
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.background = "var(--color-card)";
@@ -205,13 +198,13 @@ const Contact = () => {
                     e.currentTarget.querySelector(".arrow-icon").style.transform = "translateX(0)";
                   }}
                 >
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 overflow-hidden">
                     <span
                       style={{
                         fontFamily: "'JetBrains Mono', monospace",
-                        fontSize: "0.6rem",
+                        fontSize: "0.62rem",
                         fontWeight: 700,
-                        letterSpacing: "0.18em",
+                        letterSpacing: "0.15em",
                         textTransform: "uppercase",
                         color: "var(--color-text-muted)",
                         minWidth: "70px",
@@ -223,9 +216,10 @@ const Contact = () => {
                       {method.icon} {method.label}
                     </span>
                     <span
+                      className="break-all"
                       style={{
                         fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: "0.9rem",
+                        fontSize: "0.88rem",
                         fontWeight: 500,
                         color: "var(--color-text)",
                       }}
@@ -234,7 +228,7 @@ const Contact = () => {
                     </span>
                   </div>
                   <span
-                    className="arrow-icon"
+                    className="arrow-icon flex-shrink-0"
                     style={{
                       color: "var(--color-text-muted)",
                       fontFamily: "'Space Grotesk', sans-serif",
@@ -258,10 +252,10 @@ const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
+              className="p-5 sm:p-8 md:p-10"
               style={{
                 background: "var(--color-card)",
                 border: "1px solid var(--color-border)",
-                padding: "2.5rem",
                 borderRadius: 0,
               }}
             >
@@ -272,7 +266,7 @@ const Contact = () => {
                   fontWeight: 400,
                   color: "var(--color-text)",
                   letterSpacing: "0.05em",
-                  margin: "0 0 1.75rem",
+                  margin: "0 0 1.5rem",
                 }}
               >
                 Send a Message
@@ -310,6 +304,7 @@ const Contact = () => {
                 style={{
                   width: "100%",
                   padding: "1rem",
+                  minHeight: "48px",
                   background: "var(--color-accent)",
                   color: "#fff",
                   border: "none",

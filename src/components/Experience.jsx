@@ -13,14 +13,8 @@ const ExperienceRow = ({ exp, index, isHovered, onHover }) => {
       transition={{ delay: index * 0.1, duration: 0.5 }}
       onMouseEnter={onHover}
       onMouseLeave={() => onHover(false)}
+      className="experience-row-responsive"
       style={{
-        display: "grid",
-        gridTemplateColumns: "160px 1fr",
-        gap: "2.5rem",
-        padding: "2rem 0",
-        borderBottom: "1px solid var(--color-border)",
-        position: "relative",
-        transition: "background 0.2s",
         background: isHovered ? "var(--color-card)" : "transparent",
       }}
     >
@@ -41,30 +35,33 @@ const ExperienceRow = ({ exp, index, isHovered, onHover }) => {
 
       {/* Left: index + date */}
       <div style={{ paddingLeft: isHovered ? "1.25rem" : "0", transition: "padding 0.2s" }}>
-        <span
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "0.65rem",
-            fontWeight: 700,
-            color: "var(--color-accent)",
-            letterSpacing: "0.1em",
-            display: "block",
-            marginBottom: "0.4rem",
-          }}
-        >
-          [{idx}]
-        </span>
-        <span
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "0.62rem",
-            color: "var(--color-text-muted)",
-            letterSpacing: "0.05em",
-            lineHeight: 1.5,
-          }}
-        >
-          {exp.duration}
-        </span>
+        <div className="flex items-center gap-2 md:block">
+          <span
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "0.65rem",
+              fontWeight: 700,
+              color: "var(--color-accent)",
+              letterSpacing: "0.1em",
+              display: "inline-block",
+              marginBottom: "0.25rem",
+            }}
+          >
+            [{idx}]
+          </span>
+          <span
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: "0.62rem",
+              color: "var(--color-text-muted)",
+              letterSpacing: "0.05em",
+              lineHeight: 1.5,
+              display: "block",
+            }}
+          >
+            {exp.duration}
+          </span>
+        </div>
       </div>
 
       {/* Right: content */}
@@ -72,7 +69,7 @@ const ExperienceRow = ({ exp, index, isHovered, onHover }) => {
         <h3
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "1.1rem",
+            fontSize: "1.05rem",
             fontWeight: 700,
             color: "var(--color-text)",
             margin: "0 0 0.25rem",
@@ -86,7 +83,7 @@ const ExperienceRow = ({ exp, index, isHovered, onHover }) => {
             fontSize: "0.88rem",
             fontWeight: 600,
             color: "var(--color-accent)",
-            margin: "0 0 1rem",
+            margin: "0 0 0.85rem",
           }}
         >
           {exp.organization}
@@ -144,21 +141,16 @@ const EducationRow = ({ edu, index }) => {
       transition={{ delay: index * 0.08 }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
+      className="education-row-responsive"
       style={{
-        display: "grid",
-        gridTemplateColumns: "160px 1fr 120px",
-        gap: "2rem",
-        padding: "1.25rem 0",
-        borderBottom: "1px solid var(--color-border)",
         background: hov ? "var(--color-card)" : "transparent",
-        transition: "background 0.15s",
-        alignItems: "center",
       }}
     >
       <span
+        className="edu-duration"
         style={{
           fontFamily: "'JetBrains Mono', monospace",
-          fontSize: "0.62rem",
+          fontSize: "0.65rem",
           color: "var(--color-text-muted)",
           letterSpacing: "0.05em",
         }}
@@ -209,9 +201,10 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      style={{ background: "var(--color-bg)", padding: "6rem 0" }}
+      className="py-16 sm:py-24 md:py-32"
+      style={{ background: "var(--color-bg)" }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Experience Header ── */}
         <motion.div
@@ -237,7 +230,7 @@ const Experience = () => {
           <h2
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(3rem, 8vw, 6rem)",
+              fontSize: "clamp(2.8rem, 8vw, 6rem)",
               fontWeight: 400,
               lineHeight: 0.9,
               color: "var(--color-text)",

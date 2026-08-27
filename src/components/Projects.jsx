@@ -103,12 +103,12 @@ const ProjectCard = ({ project, index }) => {
       </div>
 
       {/* Body */}
-      <div style={{ padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", flex: 1, gap: "0.75rem" }}>
+      <div style={{ padding: "1.15rem 1.25rem", display: "flex", flexDirection: "column", flex: 1, gap: "0.75rem" }}>
         {/* Title */}
         <h3
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: "1.05rem",
+            fontSize: "1.02rem",
             fontWeight: 700,
             color: "var(--color-text)",
             margin: 0,
@@ -134,7 +134,7 @@ const ProjectCard = ({ project, index }) => {
         </div>
 
         {/* Tech chips */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
           {project.tech.map((t) => (
             <span
               key={t}
@@ -144,7 +144,7 @@ const ProjectCard = ({ project, index }) => {
                 fontWeight: 600,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
-                padding: "3px 8px",
+                padding: "3px 7px",
                 border: "1px solid var(--color-border)",
                 color: "var(--color-text-muted)",
                 borderRadius: 0,
@@ -187,6 +187,7 @@ const ProjectCard = ({ project, index }) => {
                 transition: "color 0.15s",
                 display: "flex",
                 alignItems: "center",
+                padding: "4px",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
@@ -203,6 +204,7 @@ const ProjectCard = ({ project, index }) => {
                 transition: "color 0.15s",
                 display: "flex",
                 alignItems: "center",
+                padding: "4px",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
               onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
@@ -227,9 +229,10 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      style={{ background: "var(--color-bg-secondary)", padding: "6rem 0" }}
+      className="py-16 sm:py-24 md:py-32"
+      style={{ background: "var(--color-bg-secondary)" }}
     >
-      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Section Header ── */}
         <motion.div
@@ -237,7 +240,7 @@ const Projects = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          style={{ marginBottom: "3rem" }}
+          style={{ marginBottom: "2.5rem" }}
         >
           <span
             style={{
@@ -256,7 +259,7 @@ const Projects = () => {
           <h2
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(3rem, 8vw, 6rem)",
+              fontSize: "clamp(2.8rem, 8vw, 6rem)",
               fontWeight: 400,
               lineHeight: 0.9,
               color: "var(--color-text)",
@@ -275,12 +278,12 @@ const Projects = () => {
           />
         </motion.div>
 
-        {/* ── Filter Tabs ── */}
+        {/* ── Filter Tabs (scrollable on mobile) ── */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "2.5rem" }}
+          className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none"
         >
           {CATEGORIES.map((cat) => {
             const isActive = activeFilter === cat;
@@ -294,13 +297,15 @@ const Projects = () => {
                   fontWeight: 700,
                   letterSpacing: "0.1em",
                   textTransform: "uppercase",
-                  padding: "0.5rem 1.1rem",
+                  padding: "0.45rem 1rem",
+                  minHeight: "36px",
                   borderRadius: 0,
                   border: `1px solid ${isActive ? "var(--color-accent)" : "var(--color-border)"}`,
                   background: isActive ? "var(--color-accent)" : "transparent",
-                  color: isActive ? "#fff" : "var(--color-text-muted)",
+                  color: isActive ? "var(--color-bg)" : "var(--color-text-muted)",
                   cursor: "pointer",
                   transition: "all 0.15s",
+                  whiteSpace: "nowrap",
                 }}
               >
                 {cat}
@@ -309,7 +314,7 @@ const Projects = () => {
           })}
         </motion.div>
 
-        {/* ── Grid ── */}
+        {/* ── Grid with zero horizontal blowout ── */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFilter}
@@ -319,7 +324,7 @@ const Projects = () => {
             transition={{ duration: 0.25 }}
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
               gap: "1.5px",
               background: "var(--color-border)",
               border: "1px solid var(--color-border)",
@@ -338,13 +343,14 @@ const Projects = () => {
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          style={{ marginTop: "3rem", display: "flex", alignItems: "center", gap: "1.5rem" }}
+          className="mt-10 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-center"
         >
-          <div style={{ height: "1px", flex: 1, background: "var(--color-border)" }} />
+          <div className="hidden sm:block h-px flex-1" style={{ background: "var(--color-border)" }} />
           <a
             href="https://github.com/bankarharidas"
             target="_blank"
             rel="noreferrer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2"
             style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: "0.72rem",
@@ -352,11 +358,9 @@ const Projects = () => {
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               padding: "0.75rem 1.75rem",
+              minHeight: "44px",
               border: "1px solid var(--color-border)",
               color: "var(--color-text-muted)",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
               textDecoration: "none",
               borderRadius: 0,
               transition: "all 0.15s",
@@ -370,9 +374,9 @@ const Projects = () => {
               e.currentTarget.style.color = "var(--color-text-muted)";
             }}
           >
-            <FaGithub size={13} /> View All on GitHub →
+            <FaGithub size={14} /> View All on GitHub →
           </a>
-          <div style={{ height: "1px", flex: 1, background: "var(--color-border)" }} />
+          <div className="hidden sm:block h-px flex-1" style={{ background: "var(--color-border)" }} />
         </motion.div>
       </div>
     </section>

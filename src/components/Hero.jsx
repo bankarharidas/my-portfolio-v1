@@ -165,7 +165,7 @@ const Hero = () => {
 
         {/* CTA Buttons — square, no rounded corners */}
         <motion.div className="hero-brut-ctas" variants={item}>
-          <Link to="projects" smooth duration={600} offset={-100}>
+          <Link to="projects" smooth duration={600} offset={-80}>
             <button className="hero-brut-btn-primary">
               View My Work <span aria-hidden="true">→</span>
             </button>
@@ -177,6 +177,19 @@ const Hero = () => {
             className="hero-brut-btn-ghost"
           >
             <FaDownload size={13} /> Resume
+          </a>
+        </motion.div>
+
+        {/* Mobile-only social icons (since left rail is hidden on < 900px) */}
+        <motion.div className="hero-mobile-socials" variants={item}>
+          <a href={personalInfo.github} target="_blank" rel="noreferrer" aria-label="GitHub">
+            <FaGithub size={17} />
+          </a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <FaLinkedin size={17} />
+          </a>
+          <a href={`mailto:${personalInfo.email}`} aria-label="Email">
+            <FaEnvelope size={15} />
           </a>
         </motion.div>
       </motion.div>

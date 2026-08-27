@@ -18,21 +18,21 @@ const ChipGroup = ({ label, items }) => (
     >
       {label}
     </span>
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
       {items.map((skill, i) => (
         <motion.div
           key={skill.name}
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: i * 0.04, duration: 0.3 }}
+          transition={{ delay: i * 0.03, duration: 0.3 }}
           style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "0.68rem",
+            fontSize: "0.66rem",
             fontWeight: 600,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            padding: "0.45rem 0.9rem",
+            padding: "0.4rem 0.8rem",
             border: "1px solid var(--color-border)",
             color: "var(--color-text-muted)",
             borderRadius: 0,
@@ -63,9 +63,10 @@ const ChipGroup = ({ label, items }) => (
 const Skills = () => (
   <section
     id="skills"
-    style={{ background: "var(--color-bg)", padding: "6rem 0" }}
+    className="py-16 sm:py-24 md:py-32"
+    style={{ background: "var(--color-bg)" }}
   >
-    <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem" }}>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       {/* ── Section Header ── */}
       <motion.div
@@ -73,7 +74,7 @@ const Skills = () => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        style={{ marginBottom: "3.5rem" }}
+        style={{ marginBottom: "3rem" }}
       >
         <span
           style={{
@@ -92,7 +93,7 @@ const Skills = () => (
         <h2
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(3rem, 8vw, 6rem)",
+            fontSize: "clamp(2.8rem, 8vw, 6rem)",
             fontWeight: 400,
             lineHeight: 0.9,
             color: "var(--color-text)",
@@ -105,16 +106,8 @@ const Skills = () => (
         <div style={{ width: "120px", height: "4px", background: "var(--color-accent)" }} />
       </motion.div>
 
-      {/* ── Two-column layout ── */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 380px",
-          gap: "4rem",
-          alignItems: "start",
-        }}
-        className="skills-grid-responsive"
-      >
+      {/* ── Two-column layout (responsive via CSS class) ── */}
+      <div className="skills-grid-responsive">
         {/* LEFT: tech chips */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}

@@ -126,10 +126,10 @@ const Navbar = () => {
         transition: 'all 0.4s ease',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 h-14 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex justify-between items-center">
         {/* Logo — scrolls to #hero on home, navigates to / elsewhere */}
         {isHomePage ? (
-          <Link to="hero" smooth duration={500} offset={-100} className="cursor-pointer">
+          <Link to="hero" smooth duration={500} offset={-80} className="cursor-pointer">
             <LogoMark />
           </Link>
         ) : (
@@ -146,7 +146,7 @@ const Navbar = () => {
               to={link.to}
               smooth={true}
               duration={500}
-              offset={-100}
+              offset={-80}
               className="relative cursor-pointer px-4 py-2 text-sm font-medium rounded-lg group"
               style={{
                 color: activeSection === link.to ? 'var(--color-accent)' : 'var(--color-text-muted)',
@@ -269,22 +269,26 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Right Controls */}
-        <div className="md:hidden flex items-center gap-3">
+        <div className="md:hidden flex items-center gap-2.5">
           <motion.button
             onClick={toggleTheme}
             whileTap={{ scale: 0.9 }}
-            className="w-9 h-9 rounded-lg flex items-center justify-center"
+            className="w-10 h-10 rounded-lg flex items-center justify-center"
             style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-muted)' }}
+            aria-label="Toggle theme"
           >
-            {isDark ? <FaSun size={14} style={{ color: '#f59e0b' }} /> : <FaMoon size={14} style={{ color: '#6366f1' }} />}
+            {isDark ? <FaSun size={15} style={{ color: '#f59e0b' }} /> : <FaMoon size={15} style={{ color: '#6366f1' }} />}
           </motion.button>
 
-          <button
-            style={{ color: 'var(--color-text)' }}
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            className="w-10 h-10 rounded-lg flex items-center justify-center"
+            style={{ border: '1px solid var(--color-border)', color: 'var(--color-text)' }}
             onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
           >
-            {isOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
-          </button>
+            {isOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
+          </motion.button>
         </div>
       </div>
 
@@ -295,49 +299,59 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className="md:hidden overflow-hidden"
             style={{
-              background: isDark ? 'rgba(19,19,19,0.97)' : 'rgba(245,240,232,0.97)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
+              background: isDark ? 'rgba(19,19,19,0.98)' : 'rgba(245,240,232,0.98)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
               borderBottom: `1px solid var(--color-border)`,
+              boxShadow: '0 12px 32px rgba(0,0,0,0.25)',
             }}
           >
-            <div className="flex flex-col items-center py-8 space-y-4">
+            <div className="flex flex-col items-center px-6 py-6 space-y-3">
               {isHomePage && navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.07 }}
+                  className="w-full text-center"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
                 >
                   <Link
                     to={link.to}
                     smooth={true}
                     duration={500}
-                    offset={-100}
-                    className="flex items-center gap-2 text-lg font-medium cursor-pointer"
-                    style={{ color: 'var(--color-text-muted)' }}
+                    offset={-80}
+                    className="flex items-center justify-center gap-2 py-3 px-4 text-base font-semibold rounded-lg w-full cursor-pointer touch-target"
+                    style={{
+                      color: activeSection === link.to ? 'var(--color-accent)' : 'var(--color-text)',
+                      background: activeSection === link.to ? 'rgba(255,59,0,0.08)' : 'transparent',
+                    }}
                     onClick={() => setIsOpen(false)}
                   >
-                    <span className="font-mono text-sm" style={{ color: 'var(--color-accent)' }}>0{i + 1}.</span>
+                    <span className="font-mono text-xs" style={{ color: 'var(--color-accent)' }}>0{i + 1}.</span>
                     {link.name}
                   </Link>
                 </motion.div>
               ))}
               {/* Mobile Blog Link */}
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.07 }}
+                className="w-full text-center"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
               >
                 <RouterLink
                   to="/blog"
-                  className="flex items-center gap-2 text-lg font-medium"
-                  style={{ color: location.pathname.startsWith('/blog') ? 'var(--color-accent)' : 'var(--color-text-muted)' }}
+                  className="flex items-center justify-center gap-2 py-3 px-4 text-base font-semibold rounded-lg w-full touch-target"
+                  style={{
+                    color: location.pathname.startsWith('/blog') ? 'var(--color-accent)' : 'var(--color-text)',
+                    background: location.pathname.startsWith('/blog') ? 'rgba(255,59,0,0.08)' : 'transparent',
+                  }}
                   onClick={() => setIsOpen(false)}
                 >
-                  <FaPen size={13} style={{ color: 'var(--color-accent)' }} />
+                  <FaPen size={12} style={{ color: 'var(--color-accent)' }} />
                   Blog
                 </RouterLink>
               </motion.div>
@@ -345,14 +359,18 @@ const Navbar = () => {
                 href={personalInfo.resumeLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.07 }}
-                className="mt-4 px-10 py-3 text-sm font-bold font-mono rounded-lg"
-                style={{ border: '1.5px solid var(--color-accent)', color: 'var(--color-accent)' }}
+                transition={{ delay: (navLinks.length + 1) * 0.05 }}
+                className="w-full max-w-xs text-center py-3 px-6 mt-2 text-sm font-bold font-mono rounded-lg flex items-center justify-center touch-target"
+                style={{
+                  border: '1.5px solid var(--color-accent)',
+                  background: 'var(--color-accent)',
+                  color: 'var(--color-bg)',
+                }}
                 onClick={() => setIsOpen(false)}
               >
-                RESUME
+                RESUME →
               </motion.a>
             </div>
           </motion.div>
