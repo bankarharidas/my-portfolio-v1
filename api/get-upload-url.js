@@ -15,6 +15,16 @@ const s3 = new S3Client({
 const BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME;
 
 export default async function handler(req, res) {
+  // Allow CORS from your Vercel domain
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -28,16 +38,21 @@ export default async function handler(req, res) {
     }
 
     // Create a unique key to avoid collisions
-    const uniqueKey = `blog-covers/${randomUUID()}-${fileName.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+    const ext = fileName.split('.').pop();
+    const uniqueKey = `blog-covers/${randomUUID()}.${ext}`;
 
     const command = new PutObjectCommand({
       Bucket: BUCKET_NAME,
       Key: uniqueKey,
       ContentType: fileType,
+      // No checksum — avoids SignedHeaders mismatch with browser XHR
     });
 
     // Generate a pre-signed URL valid for 5 minutes
-    const signedUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
+    const signedUrl = await getSignedUrl(s3, command, {
+      expiresIn: 300,
+      unhoistableHeaders: new Set(['x-amz-checksum-crc32']),
+    });
 
     // The public URL where the image will be accessible after upload
     const publicUrl = `https://${BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${uniqueKey}`;
