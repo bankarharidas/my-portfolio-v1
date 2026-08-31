@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+// Firebase Storage removed — images are now stored on AWS S3
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -19,5 +20,7 @@ export const db = getFirestore(app);
 
 // Export Auth
 export const auth = getAuth(app);
+
+// Storage removed — use awsStorageService.ts for image uploads (AWS S3)
 
 export default app;

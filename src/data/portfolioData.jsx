@@ -38,7 +38,7 @@ export const education = [
   {
     institution: "Savitribai Fule Pune University",
     degree: "Bachelor of Engineering in Computer Science",
-    duration: "Aug 2022 – Present",
+    duration: "Aug 2022 – may 2026",
     score: "CGPA: 7.41/10",
   },
   {
@@ -58,14 +58,7 @@ export const education = [
 export const projects = [
   {
     title: "HAR.ai - Human Activity Recognition",
-    tech: [
-      "Python",
-      "Flask",
-      "MediaPipe",
-      "TensorFlow",
-      "LSTM",
-      "OpenCV",
-    ],
+    tech: ["Python", "Flask", "MediaPipe", "TensorFlow", "LSTM", "OpenCV"],
     description: [
       <>
         Developed <span className="text-text-primary font-medium">HAR.ai</span>,

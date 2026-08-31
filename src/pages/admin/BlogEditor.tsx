@@ -14,8 +14,10 @@ import {
   FaCode,
   FaLink,
   FaImage,
+  FaUpload,
 } from 'react-icons/fa';
 import { createBlog, getBlogById, updateBlog } from '../../lib/blogService';
+import { uploadImage, buildBlogCoverPath } from '../../lib/awsStorageService';
 import type { CreateBlogPost } from '../../types/blog';
 
 type Tab = 'write' | 'preview';
@@ -42,7 +44,10 @@ const BlogEditor = () => {
   const [tab, setTab] = useState<Tab>('write');
   const [saving, setSaving] = useState(false);
   const [toast, setToast] = useState('');
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [uploadError, setUploadError] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isEditing && id) {
@@ -104,6 +109,27 @@ const BlogEditor = () => {
       showToast('❌ Error saving post. Try again.');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadError('');
+    setUploadProgress(0);
+
+    try {
+      const path = buildBlogCoverPath(file);
+      const url = await uploadImage(file, path, (pct) => setUploadProgress(pct));
+      setCoverImage(url);
+      showToast('✅ Image uploaded to AWS S3!');
+    } catch (err) {
+      console.error('[BlogEditor] Image upload failed:', err);
+      setUploadError('❌ Upload failed. Check your AWS setup and try again.');
+    } finally {
+      setUploadProgress(null);
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
@@ -222,14 +248,60 @@ const BlogEditor = () => {
           </div>
 
           <div className="editor-field">
-            <label className="editor-label">Cover Image URL</label>
+            <label className="editor-label">Cover Image</label>
+
+            {/* File upload button → uploads to AWS S3 */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              id="cover-image-file"
+              onChange={handleImageFileChange}
+            />
+            <motion.button
+              type="button"
+              className="admin-btn-ghost"
+              style={{ marginBottom: 8, width: '100%', justifyContent: 'center' }}
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadProgress !== null}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <FaUpload size={13} style={{ marginRight: 6 }} />
+              {uploadProgress !== null
+                ? `Uploading… ${uploadProgress}%`
+                : 'Upload Image to AWS S3'}
+            </motion.button>
+
+            {/* Progress bar */}
+            {uploadProgress !== null && (
+              <div style={{
+                height: 4, borderRadius: 2, background: '#1e293b',
+                marginBottom: 8, overflow: 'hidden'
+              }}>
+                <div style={{
+                  height: '100%', width: `${uploadProgress}%`,
+                  background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
+                  transition: 'width 0.2s'
+                }} />
+              </div>
+            )}
+
+            {/* Upload error */}
+            {uploadError && (
+              <p style={{ color: '#f87171', fontSize: 12, marginBottom: 6 }}>{uploadError}</p>
+            )}
+
+            {/* Manual URL fallback */}
             <input
               id="cover-image"
               className="editor-input"
               value={coverImage}
               onChange={e => setCoverImage(e.target.value)}
-              placeholder="https://..."
+              placeholder="Or paste an image URL here…"
             />
+
             {coverImage && (
               <img
                 src={coverImage}
