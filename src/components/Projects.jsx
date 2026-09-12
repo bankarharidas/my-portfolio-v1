@@ -283,7 +283,7 @@ const Projects = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none"
+          className="flex flex-nowrap md:flex-wrap gap-2 mb-8 overflow-x-auto pb-1 scrollbar-none"
         >
           {CATEGORIES.map((cat) => {
             const isActive = activeFilter === cat;

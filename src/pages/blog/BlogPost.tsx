@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft, FaClock, FaTag, FaCalendar } from 'react-icons/fa';
 import { getBlogBySlug } from '../../lib/blogService';
 import type { BlogPost } from '../../types/blog';
-import Navbar from '../../components/Navbar';
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -44,13 +43,11 @@ const BlogPost = () => {
 
   return (
     <motion.div
-      className="min-h-screen bg-bg-primary pt-24 pb-24"
+      className="bg-bg-primary pb-24"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Shared Navbar */}
-      <Navbar />
       {/* Cover Image */}
       {blog.coverImage && (
         <div className="w-full max-w-5xl mx-auto h-[40vh] min-h-[300px] mb-12 relative overflow-hidden bg-bg-secondary">
@@ -115,7 +112,7 @@ const BlogPost = () => {
 
         {/* Content */}
         <motion.div
-          className="prose prose-invert max-w-none prose-p:text-text-muted prose-p:leading-relaxed prose-headings:is-family-secondary prose-headings:font-bold prose-headings:text-text-primary prose-a:text-accent hover:prose-a:opacity-80 prose-img:grayscale prose-img:opacity-90 prose-img:mx-auto prose-strong:text-text-primary prose-blockquote:border-l-accent prose-blockquote:text-text-muted prose-blockquote:italic prose-li:text-text-muted prose-code:text-accent prose-code:bg-accent/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded"
+          className="prose dark:prose-invert max-w-none prose-p:text-text-muted prose-p:leading-relaxed prose-headings:is-family-secondary prose-headings:font-bold prose-headings:text-text-primary prose-a:text-accent hover:prose-a:opacity-80 prose-img:grayscale prose-img:opacity-90 prose-img:mx-auto prose-strong:text-text-primary prose-blockquote:border-l-accent prose-blockquote:text-text-muted prose-blockquote:italic prose-li:text-text-muted prose-code:text-accent prose-code:bg-accent/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}

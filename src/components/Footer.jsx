@@ -11,8 +11,8 @@ const Footer = () => {
   return (
     <footer
       style={{
-        background: "var(--color-bg)",
-        borderTop: "1px solid var(--color-border)",
+        background: "var(--bg-secondary)",
+        borderTop: "1px solid var(--border-color)",
         padding: "2rem 0",
       }}
     >
@@ -25,12 +25,12 @@ const Footer = () => {
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: "1.8rem",
               fontWeight: 400,
-              color: "var(--color-text)",
+              color: "var(--text-primary)",
               letterSpacing: "0.05em",
             }}
           >
             HB
-            <span style={{ color: "var(--color-accent)" }}>.</span>
+            <span className="text-accent">.</span>
           </span>
 
           {/* Nav links */}
@@ -49,13 +49,13 @@ const Footer = () => {
                   fontWeight: 600,
                   letterSpacing: "0.15em",
                   textTransform: "uppercase",
-                  color: "var(--color-text-muted)",
+                  color: "var(--text-muted)",
                   cursor: "pointer",
                   transition: "color 0.15s",
                   textDecoration: "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-color)")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-muted)")}
               >
                 {item}
               </Link>
@@ -69,9 +69,7 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
-              style={{ color: "var(--color-text-muted)", transition: "color 0.15s", padding: "4px" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+              className="text-text-muted hover:text-accent transition-colors p-1"
             >
               <FaGithub size={16} />
             </a>
@@ -80,18 +78,14 @@ const Footer = () => {
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
-              style={{ color: "var(--color-text-muted)", transition: "color 0.15s", padding: "4px" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+              className="text-text-muted hover:text-accent transition-colors p-1"
             >
               <FaLinkedin size={16} />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
               aria-label="Email"
-              style={{ color: "var(--color-text-muted)", transition: "color 0.15s", padding: "4px" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--color-accent)")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--color-text-muted)")}
+              className="text-text-muted hover:text-accent transition-colors p-1"
             >
               <FaEnvelope size={15} />
             </a>
@@ -101,7 +95,7 @@ const Footer = () => {
         {/* Row 2: copyright */}
         <div
           style={{
-            borderTop: "1px solid var(--color-border)",
+            borderTop: "1px solid var(--border-color)",
             paddingTop: "1rem",
             textAlign: "center",
           }}
@@ -112,7 +106,7 @@ const Footer = () => {
               fontSize: "0.6rem",
               fontWeight: 500,
               letterSpacing: "0.1em",
-              color: "var(--color-text-muted)",
+              color: "var(--text-muted)",
               opacity: 0.6,
               margin: 0,
             }}

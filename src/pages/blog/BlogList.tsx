@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { FaSearch, FaClock, FaTag, FaArrowRight, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import { getAllBlogs } from '../../lib/blogService';
 import type { BlogPost } from '../../types/blog';
-import Navbar from '../../components/Navbar';
 import { useAuth } from '../../context/AuthContext';
 
 const BlogList = () => {
@@ -33,9 +32,7 @@ const BlogList = () => {
   });
 
   return (
-    <div className="min-h-screen bg-bg-primary pt-24">
-      {/* Shared Navbar */}
-      <Navbar />
+    <div className="bg-bg-primary">
 
       {/* Hero */}
       <section className="max-w-4xl mx-auto px-4 text-center mb-16">

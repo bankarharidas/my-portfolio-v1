@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <div className="container mt-28 mb-12">
       <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-8">
-        <div className="w-full md:w-7/12 pt-4">
+        <div className="w-full md:w-7/12 pt-4 text-center md:text-left">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold is-family-secondary is-italic mb-2">
               Hey, I am Haridas
@@ -27,7 +27,7 @@ const Hero = () => {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
               <a 
                 href="mailto:bankarhari02@gmail.com" 
                 target="_blank" 
@@ -60,7 +60,7 @@ const Hero = () => {
           <div className="w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-lg border border-border-color">
             <img 
               alt="Haridas Bankar" 
-              src="https://avatars.githubusercontent.com/u/1?v=4" 
+              src="/haridas.png" 
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.target.src = 'https://via.placeholder.com/400';
