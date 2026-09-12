@@ -61,60 +61,23 @@ const ChipGroup = ({ label, items }) => (
 );
 
 const Skills = () => (
-  <section
-    id="skills"
-    className="py-16 sm:py-24 md:py-32"
-    style={{ background: "var(--color-bg)" }}
-  >
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section id="skills" className="container py-16 md:py-24">
+    <div className="flex items-center gap-6 mb-8">
+      <h2 className="text-3xl md:text-4xl font-bold is-family-secondary is-italic text-text-primary">
+        Skills
+      </h2>
+      <div className="flex-1 h-px bg-border-color" />
+    </div>
 
-      {/* ── Section Header ── */}
+    {/* ── Two-column layout (responsive via CSS class) ── */}
+    <div className="skills-grid-responsive grid grid-cols-1 lg:grid-cols-2 gap-12">
+      {/* LEFT: tech chips */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        style={{ marginBottom: "3rem" }}
+        transition={{ duration: 0.6 }}
       >
-        <span
-          style={{
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            letterSpacing: "0.2em",
-            color: "var(--color-text-muted)",
-            textTransform: "uppercase",
-            display: "block",
-            marginBottom: "0.5rem",
-          }}
-        >
-          004
-        </span>
-        <h2
-          style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: "clamp(2.8rem, 8vw, 6rem)",
-            fontWeight: 400,
-            lineHeight: 0.9,
-            color: "var(--color-text)",
-            margin: "0 0 1rem",
-            letterSpacing: "0.02em",
-          }}
-        >
-          Skills
-        </h2>
-        <div style={{ width: "120px", height: "4px", background: "var(--color-accent)" }} />
-      </motion.div>
-
-      {/* ── Two-column layout (responsive via CSS class) ── */}
-      <div className="skills-grid-responsive">
-        {/* LEFT: tech chips */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
           <ChipGroup label="Languages" items={skills.languages} />
           <ChipGroup label="Frameworks & Libraries" items={skills.frameworksAndLibraries} />
           <ChipGroup label="Tools & Platforms" items={skills.toolsAndPlatforms} />
@@ -191,7 +154,7 @@ const Skills = () => (
           </div>
 
           {/* Editorial quote block */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -215,7 +178,7 @@ const Skills = () => (
               }}
             >
               Full Stack
-              <span style={{ color: "var(--color-accent)" }}> ·</span> Blockchain
+              <span style={{ color: "var(--color-accent)" }}> ·</span> Web Dev
               <span style={{ color: "var(--color-accent)" }}> ·</span> AI/ML
             </p>
             <span
@@ -229,11 +192,10 @@ const Skills = () => (
             >
               Primary Domains
             </span>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 
 export default Skills;
