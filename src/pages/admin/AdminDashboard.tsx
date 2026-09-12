@@ -52,154 +52,166 @@ const AdminDashboard = () => {
   const drafts = blogs.filter(b => b.status === 'draft').length;
 
   return (
-    <div className="admin-dashboard">
+    <div className="container py-16 md:py-24 max-w-5xl mx-auto">
       {/* Header */}
-      <header className="admin-header">
-        <div className="admin-header-inner">
-          <div>
-            <h1 className="admin-header-title">
-              ✍️ Blog Admin
-            </h1>
-            <p className="admin-header-email">{user?.email}</p>
-          </div>
-          <div className="admin-header-actions">
-            <motion.button
-              className="admin-btn-primary"
-              onClick={() => navigate('/admin/new')}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              id="new-post-btn"
-            >
-              <FaPlus size={13} /> New Post
-            </motion.button>
-            <motion.button
-              className="admin-btn-ghost"
-              onClick={handleLogout}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-            >
-              <FaSignOutAlt size={13} /> Logout
-            </motion.button>
-          </div>
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 border-b border-border-color pb-8">
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold is-family-secondary text-text-primary mb-2">
+            ✍️ Blog Admin
+          </h1>
+          <p className="text-text-muted text-sm font-medium is-family-monospace">{user?.email}</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <motion.button
+            className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white font-bold text-sm uppercase tracking-wider transition-opacity hover:opacity-90 rounded-none"
+            onClick={() => navigate('/admin/new')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            id="new-post-btn"
+          >
+            <FaPlus size={12} /> New Post
+          </motion.button>
+          <motion.button
+            className="flex items-center gap-2 px-5 py-2.5 border border-border-color text-text-primary font-bold text-sm uppercase tracking-wider hover:bg-bg-secondary transition-colors rounded-none"
+            onClick={handleLogout}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <FaSignOutAlt size={12} /> Logout
+          </motion.button>
         </div>
       </header>
 
-      <div className="admin-content">
+      <div className="space-y-12">
         {/* Stats */}
-        <div className="admin-stats">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
-            { label: 'Total Posts', value: blogs.length, icon: <FaFileAlt />, color: '#6366f1' },
-            { label: 'Published', value: published, icon: <FaCheckCircle />, color: '#10b981' },
-            { label: 'Drafts', value: drafts, icon: <FaClock />, color: '#f59e0b' },
+            { label: 'Total Posts', value: blogs.length, icon: <FaFileAlt />, color: 'text-blue-500' },
+            { label: 'Published', value: published, icon: <FaCheckCircle />, color: 'text-green-500' },
+            { label: 'Drafts', value: drafts, icon: <FaClock />, color: 'text-yellow-500' },
           ].map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="admin-stat-card"
+              className="bg-bg-secondary border border-border-color p-6 flex items-center gap-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
             >
-              <div className="admin-stat-icon" style={{ color: stat.color }}>
+              <div className={`text-3xl ${stat.color}`}>
                 {stat.icon}
               </div>
               <div>
-                <div className="admin-stat-value">{stat.value}</div>
-                <div className="admin-stat-label">{stat.label}</div>
+                <div className="text-3xl font-bold is-family-secondary text-text-primary leading-none mb-1">{stat.value}</div>
+                <div className="text-xs font-bold uppercase tracking-wider text-text-muted">{stat.label}</div>
               </div>
             </motion.div>
           ))}
         </div>
 
         {/* Blog List */}
-        <div className="admin-section">
-          <h2 className="admin-section-title">All Posts</h2>
+        <div>
+          <div className="flex items-center gap-4 mb-6">
+            <h2 className="text-2xl font-bold is-family-secondary text-text-primary">All Posts</h2>
+            <div className="flex-1 h-px bg-border-color" />
+          </div>
 
           {loading ? (
-            <div className="admin-loading">
-              <div className="admin-spinner" />
-              <p>Loading posts...</p>
+            <div className="py-12 flex flex-col items-center justify-center text-text-muted gap-4 border border-border-color bg-bg-secondary">
+              <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+              <p className="text-sm font-medium uppercase tracking-wider">Loading posts...</p>
             </div>
           ) : blogs.length === 0 ? (
             <motion.div
-              className="admin-empty"
+              className="py-16 flex flex-col items-center justify-center text-center border border-border-color bg-bg-secondary"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
             >
-              <FaFileAlt size={40} style={{ opacity: 0.2, marginBottom: 16 }} />
-              <p>No blog posts yet.</p>
+              <FaFileAlt size={40} className="text-text-muted opacity-30 mb-4" />
+              <p className="text-text-primary font-medium mb-6">No blog posts yet.</p>
               <button
-                className="admin-btn-primary"
+                className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white font-bold text-sm uppercase tracking-wider transition-opacity hover:opacity-90"
                 onClick={() => navigate('/admin/new')}
               >
                 <FaPlus size={12} /> Write your first post
               </button>
             </motion.div>
           ) : (
-            <div className="admin-blog-list">
+            <div className="flex flex-col gap-4">
               <AnimatePresence>
                 {blogs.map((blog, i) => (
                   <motion.div
                     key={blog.id}
-                    className="admin-blog-item"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-5 sm:p-6 bg-bg-secondary border border-border-color group hover:border-accent transition-colors"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ delay: i * 0.05 }}
                   >
-                    <div className="admin-blog-item-left">
-                      <span
-                        className="admin-status-badge"
-                        data-status={blog.status}
-                      >
-                        {blog.status === 'published' ? '● Published' : '○ Draft'}
-                      </span>
-                      <div className="admin-blog-item-title">{blog.title}</div>
-                      <div className="admin-blog-item-meta">
-                        {new Date(blog.createdAt).toLocaleDateString('en-IN', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric',
-                        })}
-                        {' · '}
-                        {blog.readTime} min read
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span
+                          className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-sm ${
+                            blog.status === 'published' ? 'bg-green-500/10 text-green-500' : 'bg-yellow-500/10 text-yellow-500'
+                          }`}
+                        >
+                          {blog.status === 'published' ? '● Published' : '○ Draft'}
+                        </span>
+                      </div>
+                      <div className="text-lg font-bold text-text-primary truncate mb-1">{blog.title}</div>
+                      <div className="text-sm text-text-muted is-family-monospace flex items-center flex-wrap gap-2">
+                        <span>
+                          {new Date(blog.createdAt).toLocaleDateString('en-IN', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </span>
+                        <span className="opacity-50">·</span>
+                        <span>{blog.readTime} min read</span>
                         {blog.tags.length > 0 && (
-                          <> · {blog.tags.slice(0, 3).join(', ')}</>
+                          <>
+                            <span className="opacity-50">·</span>
+                            <span className="truncate max-w-[200px]">{blog.tags.join(', ')}</span>
+                          </>
                         )}
                       </div>
                     </div>
-                    <div className="admin-blog-item-actions">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       {blog.status === 'published' && (
                         <motion.a
                           href={`/blog/${blog.slug}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="admin-icon-btn"
+                          className="w-10 h-10 flex items-center justify-center bg-bg-primary border border-border-color text-text-muted hover:text-accent hover:border-accent transition-colors"
                           title="View post"
-                          whileHover={{ scale: 1.15 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
                           <FaEye size={14} />
                         </motion.a>
                       )}
                       <motion.button
-                        className="admin-icon-btn"
+                        className="w-10 h-10 flex items-center justify-center bg-bg-primary border border-border-color text-text-muted hover:text-accent hover:border-accent transition-colors"
                         title="Edit post"
                         onClick={() => navigate(`/admin/edit/${blog.id}`)}
-                        whileHover={{ scale: 1.15 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <FaEdit size={14} />
                       </motion.button>
+                      
                       {confirmDelete === blog.id ? (
-                        <div className="admin-delete-confirm">
-                          <span>Delete?</span>
+                        <div className="flex items-center gap-2 bg-bg-primary border border-red-500/30 p-1">
+                          <span className="text-xs font-bold text-red-500 px-2">Delete?</span>
                           <button
-                            className="admin-delete-yes"
+                            className="w-8 h-8 bg-red-500 text-white flex items-center justify-center text-xs font-bold hover:bg-red-600 transition-colors"
                             onClick={() => handleDelete(blog.id)}
                             disabled={deletingId === blog.id}
                           >
                             {deletingId === blog.id ? '...' : 'Yes'}
                           </button>
                           <button
-                            className="admin-delete-no"
+                            className="w-8 h-8 bg-border-color text-text-primary flex items-center justify-center text-xs font-bold hover:bg-bg-secondary transition-colors"
                             onClick={() => setConfirmDelete(null)}
                           >
                             No
@@ -207,10 +219,11 @@ const AdminDashboard = () => {
                         </div>
                       ) : (
                         <motion.button
-                          className="admin-icon-btn admin-icon-btn-danger"
+                          className="w-10 h-10 flex items-center justify-center bg-bg-primary border border-border-color text-text-muted hover:text-red-500 hover:border-red-500/50 transition-colors"
                           title="Delete post"
                           onClick={() => setConfirmDelete(blog.id)}
-                          whileHover={{ scale: 1.15 }}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
                           <FaTrash size={14} />
                         </motion.button>

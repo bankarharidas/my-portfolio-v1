@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -43,46 +43,65 @@ const Portfolio = () => (
   </div>
 );
 
+function AppContent() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const element = document.getElementById(location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
+  }, [location]);
+
+  return (
+    <Routes>
+      {/* Portfolio */}
+      <Route path="/" element={<Portfolio />} />
+      <Route path="/projects" element={<ProjectsPage />} />
+
+      {/* Public Blog */}
+      <Route path="/blog" element={<BlogList />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
+
+      {/* Admin */}
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/new"
+        element={
+          <ProtectedRoute>
+            <BlogEditor />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/edit/:id"
+        element={
+          <ProtectedRoute>
+            <BlogEditor />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Routes>
-          {/* Portfolio */}
-          <Route path="/" element={<Portfolio />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-
-          {/* Public Blog */}
-          <Route path="/blog" element={<BlogList />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-
-          {/* Admin */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/new"
-            element={
-              <ProtectedRoute>
-                <BlogEditor />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/edit/:id"
-            element={
-              <ProtectedRoute>
-                <BlogEditor />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
+        <AppContent />
       </AuthProvider>
     </ThemeProvider>
   );

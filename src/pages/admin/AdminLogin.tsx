@@ -27,36 +27,35 @@ const AdminLogin = () => {
     }
   };
 
-  return (
-    <div className="admin-login-page">
-      {/* Animated background blobs */}
-      <div className="admin-blob admin-blob-1" />
-      <div className="admin-blob admin-blob-2" />
+  const inputClass = "w-full bg-transparent border-none border-b border-border-color focus:border-accent focus:outline-none text-text-primary text-base py-2 transition-colors rounded-none placeholder:text-text-muted/40 pl-8";
+  const labelClass = "block text-xs font-bold tracking-widest uppercase mb-1 text-text-muted is-family-monospace";
 
+  return (
+    <div className="min-h-[80vh] flex items-center justify-center px-4">
       <motion.div
-        className="admin-login-card"
-        initial={{ opacity: 0, y: 40, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
+        className="w-full max-w-md bg-bg-secondary border border-border-color p-8 md:p-10 shadow-sm"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         {/* Logo */}
-        <div className="admin-login-logo">
-          <div className="admin-login-logo-icon">
-            <FaLock size={22} />
+        <div className="text-center mb-10">
+          <div className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-accent/20">
+            <FaLock size={20} />
           </div>
-          <h1 className="admin-login-title">Admin Portal</h1>
-          <p className="admin-login-subtitle">
+          <h1 className="text-2xl font-bold is-family-secondary text-text-primary mb-2">Admin Portal</h1>
+          <p className="text-text-muted text-sm font-medium">
             Sign in to manage your blog posts
           </p>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="admin-login-form">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           {/* Email */}
-          <div className="admin-input-group">
-            <label className="admin-input-label">Email Address</label>
-            <div className="admin-input-wrapper">
-              <FaEnvelope className="admin-input-icon" size={14} />
+          <div>
+            <label className={labelClass}>Email Address</label>
+            <div className="relative">
+              <FaEnvelope className="absolute left-0 top-1/2 -translate-y-1/2 text-text-muted" size={14} />
               <input
                 id="admin-email"
                 type="email"
@@ -64,17 +63,17 @@ const AdminLogin = () => {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
-                className="admin-input"
+                className={inputClass}
                 autoComplete="username"
               />
             </div>
           </div>
 
           {/* Password */}
-          <div className="admin-input-group">
-            <label className="admin-input-label">Password</label>
-            <div className="admin-input-wrapper">
-              <FaLock className="admin-input-icon" size={14} />
+          <div>
+            <label className={labelClass}>Password</label>
+            <div className="relative">
+              <FaLock className="absolute left-0 top-1/2 -translate-y-1/2 text-text-muted" size={14} />
               <input
                 id="admin-password"
                 type={showPass ? 'text' : 'password'}
@@ -82,12 +81,12 @@ const AdminLogin = () => {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="admin-input"
+                className={inputClass}
                 autoComplete="current-password"
               />
               <button
                 type="button"
-                className="admin-eye-btn"
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary p-2 transition-colors"
                 onClick={() => setShowPass(!showPass)}
                 tabIndex={-1}
               >
@@ -99,9 +98,9 @@ const AdminLogin = () => {
           {/* Error */}
           {error && (
             <motion.div
-              className="admin-error"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
+              className="bg-red-500/10 border border-red-500/20 text-red-500 text-xs font-bold p-3 text-center uppercase tracking-wider"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
             >
               ⚠ {error}
             </motion.div>
@@ -112,22 +111,23 @@ const AdminLogin = () => {
             id="admin-login-submit"
             type="submit"
             disabled={loading}
-            className="admin-login-btn"
+            className="w-full bg-accent text-white font-bold text-sm uppercase tracking-wider py-4 mt-2 transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 rounded-none"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
             {loading ? (
-              <span className="admin-btn-loading">
-                <span className="admin-spinner-sm" /> Signing in...
-              </span>
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Signing in...
+              </>
             ) : (
               'Sign In'
             )}
           </motion.button>
         </form>
 
-        <p className="admin-login-footer">
-          🔒 Secured with Firebase Authentication
+        <p className="text-center text-xs text-text-muted font-bold tracking-wider uppercase mt-8 opacity-50">
+          🔒 Secured with Firebase
         </p>
       </motion.div>
     </div>

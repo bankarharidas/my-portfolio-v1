@@ -167,12 +167,15 @@ const BlogEditor = () => {
   const wordCount = content.replace(/<[^>]*>/g, '').split(/\s+/).filter(Boolean).length;
   const readTime = Math.max(1, Math.ceil(wordCount / 200));
 
+  const inputClass = "w-full bg-transparent border-none border-b border-border-color focus:border-accent focus:outline-none text-text-primary text-base py-2 transition-colors rounded-none placeholder:text-text-muted/40";
+  const labelClass = "block text-xs font-bold tracking-widest uppercase mb-1 text-text-muted is-family-monospace";
+
   return (
-    <div className="editor-page">
+    <div className="container py-8 md:py-12 max-w-7xl mx-auto">
       {/* Toast */}
       {toast && (
         <motion.div
-          className="editor-toast"
+          className="fixed top-4 right-4 bg-accent text-white px-6 py-3 font-bold text-sm tracking-wide z-50 shadow-lg"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0 }}
@@ -182,64 +185,64 @@ const BlogEditor = () => {
       )}
 
       {/* Header */}
-      <header className="admin-header">
-        <div className="admin-header-inner">
-          <div className="admin-header-left">
-            <motion.button
-              className="admin-btn-ghost"
-              onClick={() => navigate('/admin')}
-              whileHover={{ scale: 1.04 }}
-            >
-              <FaArrowLeft size={13} /> Dashboard
-            </motion.button>
-            <h1 className="admin-header-title" style={{ marginLeft: 16 }}>
-              {isEditing ? '✏️ Edit Post' : '✍️ New Post'}
-            </h1>
-          </div>
-          <div className="admin-header-actions">
-            <motion.button
-              className="admin-btn-ghost"
-              onClick={() => handleSave('draft')}
-              disabled={saving}
-              whileHover={{ scale: 1.04 }}
-              id="save-draft-btn"
-            >
-              <FaSave size={13} /> Save Draft
-            </motion.button>
-            <motion.button
-              className="admin-btn-primary"
-              onClick={() => handleSave('published')}
-              disabled={saving}
-              whileHover={{ scale: 1.04 }}
-              id="publish-btn"
-            >
-              <FaGlobe size={13} /> {saving ? 'Publishing...' : 'Publish'}
-            </motion.button>
-          </div>
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-border-color pb-6">
+        <div className="flex items-center gap-4">
+          <motion.button
+            className="w-10 h-10 flex items-center justify-center border border-border-color text-text-muted hover:text-text-primary hover:bg-bg-secondary transition-colors"
+            onClick={() => navigate('/admin')}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            title="Back to Dashboard"
+          >
+            <FaArrowLeft size={14} />
+          </motion.button>
+          <h1 className="text-2xl md:text-3xl font-bold is-family-secondary text-text-primary">
+            {isEditing ? '✏️ Edit Post' : '✍️ New Post'}
+          </h1>
+        </div>
+        <div className="flex items-center gap-4">
+          <motion.button
+            className="flex items-center gap-2 px-5 py-2.5 border border-border-color text-text-primary font-bold text-sm uppercase tracking-wider hover:bg-bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => handleSave('draft')}
+            disabled={saving}
+            whileHover={{ scale: 1.02 }}
+            id="save-draft-btn"
+          >
+            <FaSave size={12} /> Save Draft
+          </motion.button>
+          <motion.button
+            className="flex items-center gap-2 px-5 py-2.5 bg-accent text-white font-bold text-sm uppercase tracking-wider transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={() => handleSave('published')}
+            disabled={saving}
+            whileHover={{ scale: 1.02 }}
+            id="publish-btn"
+          >
+            <FaGlobe size={12} /> {saving ? 'Publishing...' : 'Publish'}
+          </motion.button>
         </div>
       </header>
 
-      <div className="editor-content">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
         {/* Left — Metadata */}
-        <div className="editor-sidebar">
-          <div className="editor-field">
-            <label className="editor-label">Post Title *</label>
+        <div className="w-full lg:w-1/3 flex flex-col gap-8">
+          <div>
+            <label className={labelClass}>Post Title *</label>
             <input
               id="post-title"
-              className="editor-input"
+              className={inputClass}
               value={title}
               onChange={e => handleTitleChange(e.target.value)}
               placeholder="Enter a catchy title..."
             />
           </div>
 
-          <div className="editor-field">
-            <label className="editor-label">URL Slug</label>
-            <div className="editor-slug-wrapper">
-              <span className="editor-slug-prefix">/blog/</span>
+          <div>
+            <label className={labelClass}>URL Slug</label>
+            <div className="flex items-center">
+              <span className="text-text-muted is-family-monospace text-sm mr-1">/blog/</span>
               <input
                 id="post-slug"
-                className="editor-input editor-slug-input"
+                className={`${inputClass} is-family-monospace text-sm`}
                 value={slug}
                 onChange={e => setSlug(e.target.value)}
                 placeholder="auto-generated"
@@ -247,8 +250,8 @@ const BlogEditor = () => {
             </div>
           </div>
 
-          <div className="editor-field">
-            <label className="editor-label">Cover Image</label>
+          <div>
+            <label className={labelClass}>Cover Image</label>
 
             {/* File upload button → uploads to AWS S3 */}
             <input
@@ -261,14 +264,13 @@ const BlogEditor = () => {
             />
             <motion.button
               type="button"
-              className="admin-btn-ghost"
-              style={{ marginBottom: 8, width: '100%', justifyContent: 'center' }}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 border border-border-color text-text-primary font-bold text-xs uppercase tracking-wider hover:bg-bg-secondary transition-colors mb-3"
               onClick={() => fileInputRef.current?.click()}
               disabled={uploadProgress !== null}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.01 }}
+              whileTap={{ scale: 0.99 }}
             >
-              <FaUpload size={13} style={{ marginRight: 6 }} />
+              <FaUpload size={12} />
               {uploadProgress !== null
                 ? `Uploading… ${uploadProgress}%`
                 : 'Upload Image to AWS S3'}
@@ -276,120 +278,129 @@ const BlogEditor = () => {
 
             {/* Progress bar */}
             {uploadProgress !== null && (
-              <div style={{
-                height: 4, borderRadius: 2, background: '#1e293b',
-                marginBottom: 8, overflow: 'hidden'
-              }}>
-                <div style={{
-                  height: '100%', width: `${uploadProgress}%`,
-                  background: 'linear-gradient(90deg, #6366f1, #8b5cf6)',
-                  transition: 'width 0.2s'
-                }} />
+              <div className="h-1 rounded-full bg-bg-secondary mb-3 overflow-hidden">
+                <div 
+                  className="h-full bg-accent transition-all duration-200"
+                  style={{ width: `${uploadProgress}%` }} 
+                />
               </div>
             )}
 
             {/* Upload error */}
             {uploadError && (
-              <p style={{ color: '#f87171', fontSize: 12, marginBottom: 6 }}>{uploadError}</p>
+              <p className="text-red-500 text-xs font-bold mb-3">{uploadError}</p>
             )}
 
             {/* Manual URL fallback */}
             <input
               id="cover-image"
-              className="editor-input"
+              className={inputClass}
               value={coverImage}
               onChange={e => setCoverImage(e.target.value)}
               placeholder="Or paste an image URL here…"
             />
 
             {coverImage && (
-              <img
-                src={coverImage}
-                alt="Cover preview"
-                className="editor-cover-preview"
-                onError={e => (e.currentTarget.style.display = 'none')}
-              />
+              <div className="mt-4 border border-border-color p-1 bg-bg-secondary">
+                <img
+                  src={coverImage}
+                  alt="Cover preview"
+                  className="w-full h-auto object-cover max-h-[150px]"
+                  onError={e => (e.currentTarget.style.display = 'none')}
+                />
+              </div>
             )}
           </div>
 
-          <div className="editor-field">
-            <label className="editor-label">Tags (comma separated)</label>
+          <div>
+            <label className={labelClass}>Tags (comma separated)</label>
             <input
               id="post-tags"
-              className="editor-input"
+              className={inputClass}
               value={tagsInput}
               onChange={e => setTagsInput(e.target.value)}
               placeholder="React, TypeScript, Web Dev"
             />
             {tagsInput && (
-              <div className="editor-tags-preview">
+              <div className="flex flex-wrap gap-2 mt-3">
                 {tagsInput.split(',').filter(t => t.trim()).map((tag, i) => (
-                  <span key={i} className="editor-tag">{tag.trim()}</span>
+                  <span key={i} className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 bg-bg-secondary border border-border-color text-text-muted">
+                    {tag.trim()}
+                  </span>
                 ))}
               </div>
             )}
           </div>
 
-          <div className="editor-field">
-            <label className="editor-label">Excerpt / Summary</label>
+          <div>
+            <label className={labelClass}>Excerpt / Summary</label>
             <textarea
               id="post-excerpt"
-              className="editor-input"
+              className={`${inputClass} resize-y min-h-[80px]`}
               value={excerpt}
               onChange={e => setExcerpt(e.target.value)}
               placeholder="Short description of the post (used in blog list)..."
               rows={3}
-              style={{ resize: 'vertical' }}
             />
           </div>
 
           {/* Stats */}
-          <div className="editor-stats">
-            <div className="editor-stat">
-              <span className="editor-stat-value">{wordCount}</span>
-              <span className="editor-stat-label">Words</span>
+          <div className="flex justify-between items-center p-4 bg-bg-secondary border border-border-color mt-4">
+            <div className="flex flex-col items-center">
+              <span className="text-xl font-bold is-family-secondary text-text-primary leading-none mb-1">{wordCount}</span>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-text-muted">Words</span>
             </div>
-            <div className="editor-stat">
-              <span className="editor-stat-value">{readTime} min</span>
-              <span className="editor-stat-label">Read Time</span>
+            <div className="w-px h-8 bg-border-color" />
+            <div className="flex flex-col items-center">
+              <span className="text-xl font-bold is-family-secondary text-text-primary leading-none mb-1">{readTime} min</span>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-text-muted">Read Time</span>
             </div>
-            <div className="editor-stat">
-              <span className="editor-stat-value">{content.length}</span>
-              <span className="editor-stat-label">Chars</span>
+            <div className="w-px h-8 bg-border-color" />
+            <div className="flex flex-col items-center">
+              <span className="text-xl font-bold is-family-secondary text-text-primary leading-none mb-1">{content.length}</span>
+              <span className="text-[10px] font-bold tracking-widest uppercase text-text-muted">Chars</span>
             </div>
           </div>
         </div>
 
         {/* Right — Editor */}
-        <div className="editor-main">
+        <div className="flex-1 flex flex-col border border-border-color bg-bg-secondary min-h-[600px] shadow-sm w-full">
           {/* Toolbar */}
-          <div className="editor-toolbar">
-            {toolbarActions.map((action) => (
-              <motion.button
-                key={action.label}
-                className="editor-toolbar-btn"
-                onClick={action.action}
-                title={action.label}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                type="button"
+          <div className="flex items-center gap-2 p-3 border-b border-border-color bg-bg-primary flex-wrap">
+            <div className="flex items-center gap-1 mr-4">
+              {toolbarActions.map((action) => (
+                <motion.button
+                  key={action.label}
+                  className="w-8 h-8 flex items-center justify-center text-text-muted hover:text-accent hover:bg-bg-secondary rounded-sm transition-colors"
+                  onClick={action.action}
+                  title={action.label}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  type="button"
+                >
+                  {action.icon}
+                </motion.button>
+              ))}
+            </div>
+            
+            <div className="flex items-center gap-2 ml-auto">
+              <button
+                className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${
+                  tab === 'write' ? 'bg-accent text-white' : 'text-text-muted hover:text-text-primary'
+                }`}
+                onClick={() => setTab('write')}
               >
-                {action.icon}
-              </motion.button>
-            ))}
-            <div className="editor-toolbar-divider" />
-            <button
-              className={`editor-tab-btn ${tab === 'write' ? 'active' : ''}`}
-              onClick={() => setTab('write')}
-            >
-              Write
-            </button>
-            <button
-              className={`editor-tab-btn ${tab === 'preview' ? 'active' : ''}`}
-              onClick={() => setTab('preview')}
-            >
-              Preview
-            </button>
+                Write
+              </button>
+              <button
+                className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${
+                  tab === 'preview' ? 'bg-accent text-white' : 'text-text-muted hover:text-text-primary'
+                }`}
+                onClick={() => setTab('preview')}
+              >
+                Preview
+              </button>
+            </div>
           </div>
 
           {/* Write Area */}
@@ -397,7 +408,7 @@ const BlogEditor = () => {
             <textarea
               ref={textareaRef}
               id="post-content"
-              className="editor-textarea"
+              className="flex-1 p-6 bg-transparent border-none focus:outline-none text-text-primary resize-none is-family-monospace text-sm leading-relaxed"
               value={content}
               onChange={e => setContent(e.target.value)}
               placeholder="Write your blog post here... You can use HTML tags for formatting.
@@ -414,16 +425,18 @@ Example:
 <code>inline code</code>"
             />
           ) : (
-            <div className="editor-preview">
+            <div className="flex-1 p-6 overflow-y-auto">
               {content ? (
                 <div
-                  className="blog-content"
+                  className="blog-content max-w-none"
                   dangerouslySetInnerHTML={{ __html: content }}
                 />
               ) : (
-                <p className="editor-preview-empty">
-                  Nothing to preview yet. Start writing!
-                </p>
+                <div className="h-full flex items-center justify-center">
+                  <p className="text-text-muted text-sm font-medium uppercase tracking-wider">
+                    Nothing to preview yet. Start writing!
+                  </p>
+                </div>
               )}
             </div>
           )}
