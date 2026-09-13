@@ -52,9 +52,9 @@ const EducationRow = ({ edu }) => {
 
 const Experience = () => {
   return (
-    <section id="experience" className="w-full px-6 md:px-12 lg:px-24 py-16 md:py-24">
+    <section id="experience" className="w-full px-6 md:px-12 lg:px-24 py-2 md:py-4">
       {/* Experience */}
-      <div className="mb-16">
+      <div className="mb-4">
         <div className="flex items-center gap-6 mb-8">
           <h2 className="text-3xl md:text-4xl font-bold is-family-secondary is-italic text-text-primary">
             Experience

@@ -2,8 +2,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { skills } from "../data/portfolioData";
 
-const ChipGroup = ({ label, items }) => (
-  <div style={{ marginBottom: "2rem" }}>
+const ChipGroup = ({ label, items, isLast }) => (
+  <div style={{ marginBottom: isLast ? "0" : "2rem" }}>
     <span
       style={{
         fontFamily: "'JetBrains Mono', monospace",
@@ -61,7 +61,7 @@ const ChipGroup = ({ label, items }) => (
 );
 
 const Skills = () => (
-  <section id="skills" className="w-full px-6 md:px-12 lg:px-24 py-16 md:py-24">
+  <section id="skills" className="w-full px-6 md:px-12 lg:px-24 py-4 md:py-4">
     <div className="flex items-center gap-6 mb-8">
       <h2 className="text-3xl md:text-4xl font-bold is-family-secondary is-italic text-text-primary">
         Skills
@@ -80,7 +80,7 @@ const Skills = () => (
       >
           <ChipGroup label="Languages" items={skills.languages} />
           <ChipGroup label="Frameworks & Libraries" items={skills.frameworksAndLibraries} />
-          <ChipGroup label="Tools & Platforms" items={skills.toolsAndPlatforms} />
+          <ChipGroup label="Tools & Platforms" items={skills.toolsAndPlatforms} isLast={true} />
         </motion.div>
 
         {/* RIGHT: competencies + quote */}
@@ -97,7 +97,7 @@ const Skills = () => (
               border: "1px solid var(--color-border)",
               padding: "1.75rem",
               borderRadius: 0,
-              marginBottom: "1.5rem",
+              marginBottom: "0",
             }}
           >
             <span
