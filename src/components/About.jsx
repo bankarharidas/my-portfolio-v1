@@ -32,7 +32,7 @@ const About = () => {
       <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'var(--color-border)' }} />
       <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'var(--color-border)' }} />
 
-      <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10">
+      <div className="w-full px-6 md:px-12 lg:px-24 mx-auto max-w-7xl relative z-10">
         <SectionTitle number="01" title="About Me" subtitle="Get to know the person behind the code" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-start">

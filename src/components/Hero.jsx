@@ -3,8 +3,8 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="container mt-28 mb-12">
-      <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-8">
+    <div className="w-full px-6 md:px-12 lg:px-24 min-h-[calc(100vh-80px)] flex items-center py-12">
+      <div className="flex flex-col-reverse md:flex-row items-center md:items-start gap-8 w-full">
         <div className="w-full md:w-7/12 pt-4 text-center md:text-left">
           <section>
             <h1 className="text-4xl md:text-5xl font-bold is-family-secondary is-italic mb-2">
@@ -57,7 +57,7 @@ const Hero = () => {
         </div>
         
         <div className="w-full md:w-5/12 flex justify-center md:justify-end">
-          <div className="w-48 h-48 md:w-64 md:h-64 rounded-3xl overflow-hidden shadow-lg border border-border-color">
+          <div className="w-56 h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-[2rem] overflow-hidden shadow-2xl border border-border-color">
             <img 
               alt="Haridas Bankar" 
               src="/haridas.png" 

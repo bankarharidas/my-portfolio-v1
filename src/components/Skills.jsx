@@ -61,7 +61,7 @@ const ChipGroup = ({ label, items }) => (
 );
 
 const Skills = () => (
-  <section id="skills" className="container py-16 md:py-24">
+  <section id="skills" className="w-full px-6 md:px-12 lg:px-24 py-16 md:py-24">
     <div className="flex items-center gap-6 mb-8">
       <h2 className="text-3xl md:text-4xl font-bold is-family-secondary is-italic text-text-primary">
         Skills

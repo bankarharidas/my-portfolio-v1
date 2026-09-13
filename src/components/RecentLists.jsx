@@ -23,7 +23,7 @@ const RecentLists = () => {
   ];
 
   return (
-    <section className="container py-16 md:py-24 border-t border-border-color">
+    <section className="w-full px-6 md:px-12 lg:px-24 py-16 md:py-24 border-t border-border-color">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         
         {/* Recent Blogs */}

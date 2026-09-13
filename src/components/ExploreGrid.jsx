@@ -30,7 +30,7 @@ const ExploreGrid = () => {
   ];
 
   return (
-    <div className="container my-12">
+    <div className="w-full px-6 md:px-12 lg:px-24 my-12">
       <div className="mb-6">
         <h2 className="text-xl md:text-2xl font-bold is-family-secondary is-italic">
           Explore Work & Writings
