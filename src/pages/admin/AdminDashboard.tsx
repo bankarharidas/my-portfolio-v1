@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaPlus, FaEdit, FaTrash, FaSignOutAlt, FaEye, FaFileAlt, FaCheckCircle, FaClock } from 'react-icons/fa';
 import { useAuth } from '../../context/AuthContext';
 import { getAllBlogsAdmin, deleteBlog } from '../../lib/blogService';
+import { deleteImage } from '../../lib/awsStorageService';
 import type { BlogPost } from '../../types/blog';
 
 const AdminDashboard = () => {
@@ -38,6 +39,19 @@ const AdminDashboard = () => {
   const handleDelete = async (id: string) => {
     setDeletingId(id);
     try {
+      const blogToDelete = blogs.find(b => b.id === id);
+      if (blogToDelete?.coverImage) {
+        try {
+          const urlObj = new URL(blogToDelete.coverImage);
+          if (urlObj.hostname.includes('amazonaws.com')) {
+            const key = decodeURIComponent(urlObj.pathname.substring(1));
+            await deleteImage(key);
+          }
+        } catch (e) {
+          console.error('Error deleting image:', e);
+        }
+      }
+
       await deleteBlog(id);
       setBlogs(prev => prev.filter(b => b.id !== id));
     } catch (err) {

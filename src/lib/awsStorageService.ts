@@ -97,16 +97,25 @@ export const getImageURL = (key: string): string => {
 
 /**
  * Delete an image from S3.
- * NOTE: Deletion requires a separate serverless endpoint for security.
- * For now, this logs a warning. Implement /api/delete-image if needed.
  *
  * @param key - The S3 object key
  */
 export const deleteImage = async (key: string): Promise<void> => {
-  console.warn(
-    '[awsStorageService] deleteImage: implement /api/delete-image serverless function to delete:',
-    key
-  );
+  try {
+    const response = await fetch('/api/delete-image', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error || 'Failed to delete image');
+    }
+  } catch (error) {
+    console.error('[awsStorageService] deleteImage error:', error);
+    throw error;
+  }
 };
 
 /**
